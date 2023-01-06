@@ -25,19 +25,49 @@ class _CalenderViewState extends State<CalenderView> {
         // 影をなくす
         elevation: 0,
       ),
-      body: Container(
-        height: 30,
-        color: Colors.orangeAccent,
-        child: Row(
-          children: weekName
-              .map((e) => Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      // eに月曜日〜日曜日までの文字列の値が入っている。
-                      child: Text(e),
-                    ),
-                  ))
-              .toList(),
+      body: Column(
+        children: [
+          Container(
+            height: 30,
+            color: Colors.orangeAccent,
+            child: Row(
+              children: weekName
+                  .map((e) => Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          // eに月曜日〜日曜日までの文字列の値が入っている。
+                          child: Text(e),
+                        ),
+                      ))
+                  .toList(),
+            ),
+          ),
+          createCalenderItem(),
+        ],
+      ),
+    );
+  }
+
+  Widget createCalenderItem() {
+    List<Widget> _list = [];
+    _list.addAll(List.generate(7, (index) => _CalenderItem()));
+    return Row(
+      children: _list,
+    );
+  }
+}
+
+class _CalenderItem extends StatelessWidget {
+  const _CalenderItem({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        child: Text('1'),
+        height: 90,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.orangeAccent),
         ),
       ),
     );
