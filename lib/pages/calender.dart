@@ -55,14 +55,21 @@ class _CalenderViewState extends State<CalenderView> {
     int monthLastDay =
         DateTime(now.year, now.month + 1, 1).subtract(Duration(days: 1)).day;
 
+    DateTime date = DateTime(now.year, now.month, 1);
+
     for (int i = 0; i < monthLastDay; i++) {
       _listCache.add(_CalenderItem(day: i + 1));
-      // 改行
-      if (i % 7 == 6) {
+      int repeatNumber = 7 - _listCache.length;
+      if (date.add(Duration(days: i)).weekday == 7) {
+        if (i < 7) {
+          _listCache.insertAll(
+              0,
+              List.generate(
+                  repeatNumber, (index) => Expanded(child: Container())));
+        }
         _list.add(Row(children: _listCache));
         _listCache = [];
       } else if (i == monthLastDay - 1) {
-        int repeatNumber = 7 - _listCache.length;
         _listCache.addAll(List.generate(
             repeatNumber, (index) => Expanded(child: Container())));
         _list.add(Row(children: _listCache));
