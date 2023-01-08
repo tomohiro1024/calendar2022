@@ -51,47 +51,49 @@ class _CalenderViewState extends State<CalenderView> {
   }
 
   Widget createCalenderItem() {
-    List<Widget> _list = [];
-    List<Widget> _listCache = [];
-    // 今月の最終日の取得
-    int monthLastDay =
-        DateTime(now.year, now.month + 1, 1).subtract(Duration(days: 1)).day;
+    return PageView.builder(itemBuilder: (context, index) {
+      List<Widget> _list = [];
+      List<Widget> _listCache = [];
+      // 今月の最終日の取得
+      int monthLastDay =
+          DateTime(now.year, now.month + 1, 1).subtract(Duration(days: 1)).day;
 
-    DateTime date = DateTime(now.year, now.month, 1);
+      DateTime date = DateTime(now.year, now.month, 1);
 
-    for (int i = 0; i < monthLastDay; i++) {
-      _listCache.add(_CalenderItem(
-        day: i + 1,
-        now: now,
-        casheDate: DateTime(now.year, now.month, i + 1),
-      ));
-      int repeatNumber = 7 - _listCache.length;
-      if (date.add(Duration(days: i)).weekday == 7) {
-        if (i < 7) {
-          _listCache.insertAll(
-              0,
-              List.generate(
-                  repeatNumber,
-                  (index) => Expanded(
-                          child: Container(
-                        color: Colors.orangeAccent.withOpacity(0.3),
-                      ))));
+      for (int i = 0; i < monthLastDay; i++) {
+        _listCache.add(_CalenderItem(
+          day: i + 1,
+          now: now,
+          casheDate: DateTime(now.year, now.month, i + 1),
+        ));
+        int repeatNumber = 7 - _listCache.length;
+        if (date.add(Duration(days: i)).weekday == 7) {
+          if (i < 7) {
+            _listCache.insertAll(
+                0,
+                List.generate(
+                    repeatNumber,
+                    (index) => Expanded(
+                            child: Container(
+                          color: Colors.orangeAccent.withOpacity(0.3),
+                        ))));
+          }
+          _list.add(Expanded(child: Row(children: _listCache)));
+          _listCache = [];
+        } else if (i == monthLastDay - 1) {
+          _listCache.addAll(List.generate(
+              repeatNumber,
+              (index) => Expanded(
+                      child: Container(
+                    color: Colors.orangeAccent.withOpacity(0.3),
+                  ))));
+          _list.add(Expanded(child: Row(children: _listCache)));
         }
-        _list.add(Expanded(child: Row(children: _listCache)));
-        _listCache = [];
-      } else if (i == monthLastDay - 1) {
-        _listCache.addAll(List.generate(
-            repeatNumber,
-            (index) => Expanded(
-                    child: Container(
-                  color: Colors.orangeAccent.withOpacity(0.3),
-                ))));
-        _list.add(Expanded(child: Row(children: _listCache)));
       }
-    }
-    return Column(
-      children: _list,
-    );
+      return Column(
+        children: _list,
+      );
+    });
   }
 }
 
