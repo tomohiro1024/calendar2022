@@ -54,11 +54,11 @@ class _CalenderViewState extends State<CalenderView> {
     return PageView.builder(itemBuilder: (context, index) {
       List<Widget> _list = [];
       List<Widget> _listCache = [];
-      // 今月の最終日の取得
+
+      DateTime date = DateTime(now.year, now.month + index, 1);
+
       int monthLastDay =
           DateTime(now.year, now.month + 1, 1).subtract(Duration(days: 1)).day;
-
-      DateTime date = DateTime(now.year, now.month, 1);
 
       for (int i = 0; i < monthLastDay; i++) {
         _listCache.add(_CalenderItem(
