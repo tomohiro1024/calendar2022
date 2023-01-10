@@ -85,6 +85,11 @@ class _CalenderViewState extends State<CalenderView> {
                             alignment: Alignment.center,
                             // eに月曜日〜日曜日までの文字列の値が入っている。
                             child: Text(e),
+                            decoration: BoxDecoration(
+                              color: (e == '日') ? Colors.redAccent : null,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            // color: (e == '日') ? Colors.redAccent : null,
                           ),
                         ))
                     .toList(),
@@ -164,7 +169,7 @@ class _CalenderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(scheduleList);
+    // print(scheduleList);
     // 今日がどうかの判定
     bool isToday =
         (now.difference(casheDate).inDays == 0) && (now.day == casheDate.day);
