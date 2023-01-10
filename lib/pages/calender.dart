@@ -20,8 +20,32 @@ class _CalenderViewState extends State<CalenderView> {
   late int initialIndex;
   int monthDuration = 0;
 
-  Schedule newSchedule = Schedule(
-      title: 'shopping', startAt: DateTime.now(), endAt: DateTime.now());
+  Map<DateTime, List<Schedule>> scheduleMap = {
+    DateTime(2023, 1, 9): [
+      Schedule(
+        title: 'shopping',
+        startAt: DateTime(2023, 1, 9, 10),
+        endAt: DateTime(2023, 1, 9, 11),
+      ),
+      Schedule(
+        title: 'drink',
+        startAt: DateTime(2023, 1, 9, 15),
+        endAt: DateTime(2023, 1, 9, 16),
+      ),
+    ],
+    DateTime(2023, 1, 10): [
+      Schedule(
+        title: 'shopping',
+        startAt: DateTime(2023, 1, 9, 10),
+        endAt: DateTime(2023, 1, 9, 11),
+      ),
+      Schedule(
+        title: 'drink',
+        startAt: DateTime(2023, 1, 9, 15),
+        endAt: DateTime(2023, 1, 9, 16),
+      ),
+    ]
+  };
 
   @override
   void initState() {
@@ -92,6 +116,7 @@ class _CalenderViewState extends State<CalenderView> {
               day: i + 1,
               now: now,
               casheDate: DateTime(date.year, date.month, i + 1),
+              scheduleList: scheduleMap[DateTime(date.year, date.month, i + 1)],
             ));
             int repeatNumber = 7 - _listCache.length;
             if (date.add(Duration(days: i)).weekday == 7) {
@@ -128,27 +153,46 @@ class _CalenderItem extends StatelessWidget {
   final int day;
   final DateTime now;
   final DateTime casheDate;
+  final List<Schedule>? scheduleList;
   const _CalenderItem(
-      {required this.day, required this.now, required this.casheDate, Key? key})
+      {required this.day,
+      required this.now,
+      required this.casheDate,
+      this.scheduleList,
+      Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print(scheduleList);
     // 今日がどうかの判定
     bool isToday =
         (now.difference(casheDate).inDays == 0) && (now.day == casheDate.day);
     return Expanded(
       child: Container(
         alignment: Alignment.topCenter,
-        child: Container(
-          decoration: BoxDecoration(
-            color: isToday ? Colors.orange : null,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          alignment: Alignment.topCenter,
-          width: 20,
-          height: 20,
-          child: Text('$day'),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: isToday ? Colors.orange : null,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              alignment: Alignment.topCenter,
+              width: 20,
+              height: 20,
+              child: Text('$day'),
+            ),
+            scheduleList == null
+                ? Container()
+                : Column(
+                    children: scheduleList!
+                        .map((e) => Container(
+                              child: Text(e.title),
+                            ))
+                        .toList(),
+                  )
+          ],
         ),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.orangeAccent),
