@@ -16,6 +16,7 @@ class _CalenderViewState extends State<CalenderView> {
   List<String> weekName = ['月', '火', '水', '木', '金', '土', '日'];
   late PageController controller;
   DateTime firstDay = DateTime(2023, 1, 1);
+  late DateTime selectedDate;
   // firstDayから何ヶ月経っているかという状態を管理
   late int initialIndex;
   int monthDuration = 0;
@@ -40,6 +41,7 @@ class _CalenderViewState extends State<CalenderView> {
   @override
   void initState() {
     super.initState();
+    selectedDate = now;
     initialIndex =
         (now.year - firstDay.year) * 12 + (now.month - firstDay.month);
     controller = PageController(initialPage: initialIndex);
@@ -57,7 +59,7 @@ class _CalenderViewState extends State<CalenderView> {
         title: Text(
           DateFormat('yyyy年 M月')
               .format(DateTime(now.year, now.month + monthDuration)),
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
         ),
         // 影をなくす
         elevation: 0,
@@ -74,12 +76,13 @@ class _CalenderViewState extends State<CalenderView> {
                           child: Container(
                             alignment: Alignment.center,
                             // eに月曜日〜日曜日までの文字列の値が入っている。
-                            child: Text(e),
-                            decoration: BoxDecoration(
-                              color: (e == '日') ? Colors.redAccent : null,
-                              borderRadius: BorderRadius.circular(20),
+                            child: Text(
+                              e,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: (e == '日') ? Colors.red : null,
+                              ),
                             ),
-                            // color: (e == '日') ? Colors.redAccent : null,
                           ),
                         ))
                     .toList(),
@@ -87,6 +90,14 @@ class _CalenderViewState extends State<CalenderView> {
             ),
             Expanded(child: createCalenderItem()),
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.orangeAccent,
+        onPressed: () {},
+        child: Icon(
+          Icons.add,
+          color: Colors.black,
         ),
       ),
     );
@@ -159,51 +170,57 @@ class _CalenderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(scheduleList);
     // 今日がどうかの判定
     bool isToday =
         (now.difference(casheDate).inDays == 0) && (now.day == casheDate.day);
     return Expanded(
-      child: Container(
-        alignment: Alignment.topCenter,
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: isToday ? Colors.orange : null,
-                borderRadius: BorderRadius.circular(10),
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          alignment: Alignment.topCenter,
+          decoration: BoxDecoration(
+            color: Colors.orangeAccent.withOpacity(0.1),
+            border: Border.all(color: Colors.orangeAccent),
+          ),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: isToday ? Colors.orange : null,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                alignment: Alignment.topCenter,
+                width: 20,
+                height: 20,
+                child: Text(
+                  '$day',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
-              alignment: Alignment.topCenter,
-              width: 20,
-              height: 20,
-              child: Text('$day'),
-            ),
-            scheduleList == null
-                ? Container()
-                : Column(
-                    children: scheduleList!
-                        .map((e) => Container(
-                              width: double.infinity,
-                              height: 20,
-                              alignment: Alignment.centerLeft,
-                              margin:
-                                  EdgeInsets.only(top: 2, left: 2, right: 2),
-                              color: Colors.blueAccent,
-                              child: Text(
-                                e.title,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
-                        .toList(),
-                  )
-          ],
-        ),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.orangeAccent),
+              scheduleList == null
+                  ? Container()
+                  : Column(
+                      children: scheduleList!
+                          .map((e) => Container(
+                                width: double.infinity,
+                                height: 20,
+                                alignment: Alignment.centerLeft,
+                                margin:
+                                    EdgeInsets.only(top: 2, left: 2, right: 2),
+                                color: Colors.blueAccent,
+                                child: Text(
+                                  e.title,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ))
+                          .toList(),
+                    )
+            ],
+          ),
         ),
       ),
     );
