@@ -14,15 +14,20 @@ class _CalenderViewState extends State<CalenderView> {
   //　曜日
   List<String> weekName = ['月', '火', '水', '木', '金', '土', '日'];
   late PageController controller;
-  DateTime firstDay = DateTime(2022, 1, 1);
+  DateTime firstDay = DateTime(2023, 1, 1);
   // firstDayから何ヶ月経っているかという状態を管理
-  late int mouthDuration;
+  late int initialIndex;
+  int monthDuration = 0;
   @override
   void initState() {
     super.initState();
-    mouthDuration =
+    initialIndex =
         (now.year - firstDay.year) * 12 + (now.month - firstDay.month);
-    controller = PageController(initialPage: mouthDuration);
+    controller = PageController(initialPage: initialIndex);
+    controller.addListener(() {
+      monthDuration = (controller.page! - initialIndex).round();
+      setState(() {});
+    });
   }
 
   @override
@@ -31,7 +36,8 @@ class _CalenderViewState extends State<CalenderView> {
       appBar: AppBar(
         backgroundColor: Colors.orangeAccent,
         title: Text(
-          DateFormat('yyyy年 M月').format(now),
+          DateFormat('yyyy年 M月')
+              .format(DateTime(now.year, now.month + monthDuration)),
           style: TextStyle(color: Colors.black),
         ),
         // 影をなくす
@@ -70,7 +76,7 @@ class _CalenderViewState extends State<CalenderView> {
           List<Widget> _listCache = [];
 
           DateTime date =
-              DateTime(now.year, now.month + index - mouthDuration, 1);
+              DateTime(now.year, now.month + index - initialIndex, 1);
 
           int monthLastDay = DateTime(date.year, date.month + 1, 1)
               .subtract(Duration(days: 1))
