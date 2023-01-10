@@ -1,3 +1,4 @@
+import 'package:calendar202211/model/schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,6 +19,10 @@ class _CalenderViewState extends State<CalenderView> {
   // firstDayから何ヶ月経っているかという状態を管理
   late int initialIndex;
   int monthDuration = 0;
+
+  Schedule newSchedule = Schedule(
+      title: 'shopping', startAt: DateTime.now(), endAt: DateTime.now());
+
   @override
   void initState() {
     super.initState();
