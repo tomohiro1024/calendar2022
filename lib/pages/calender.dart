@@ -94,11 +94,52 @@ class _CalenderViewState extends State<CalenderView> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.orangeAccent,
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return buildAppScheduleDialog();
+              });
+        },
         child: Icon(
           Icons.add,
           color: Colors.black,
         ),
+      ),
+    );
+  }
+
+  Widget buildAppScheduleDialog() {
+    return SimpleDialog(
+      titlePadding: EdgeInsets.zero,
+      title: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(child: TextField()),
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                splashRadius: 15,
+                splashColor: Colors.red,
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                splashRadius: 15,
+                splashColor: Colors.green,
+                icon: Icon(
+                  Icons.done,
+                  color: Colors.green,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
