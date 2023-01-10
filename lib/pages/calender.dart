@@ -23,26 +23,16 @@ class _CalenderViewState extends State<CalenderView> {
   Map<DateTime, List<Schedule>> scheduleMap = {
     DateTime(2023, 1, 9): [
       Schedule(
-        title: 'shopping',
+        title: 'shop',
         startAt: DateTime(2023, 1, 9, 10),
         endAt: DateTime(2023, 1, 9, 11),
-      ),
-      Schedule(
-        title: 'drink',
-        startAt: DateTime(2023, 1, 9, 15),
-        endAt: DateTime(2023, 1, 9, 16),
       ),
     ],
     DateTime(2023, 1, 10): [
       Schedule(
-        title: 'shopping',
+        title: 'shop',
         startAt: DateTime(2023, 1, 9, 10),
         endAt: DateTime(2023, 1, 9, 11),
-      ),
-      Schedule(
-        title: 'drink',
-        startAt: DateTime(2023, 1, 9, 15),
-        endAt: DateTime(2023, 1, 9, 16),
       ),
     ]
   };
@@ -193,7 +183,20 @@ class _CalenderItem extends StatelessWidget {
                 : Column(
                     children: scheduleList!
                         .map((e) => Container(
-                              child: Text(e.title),
+                              width: double.infinity,
+                              height: 20,
+                              alignment: Alignment.centerLeft,
+                              margin:
+                                  EdgeInsets.only(top: 2, left: 2, right: 2),
+                              color: Colors.blueAccent,
+                              child: Text(
+                                e.title,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ))
                         .toList(),
                   )
