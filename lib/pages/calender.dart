@@ -41,6 +41,11 @@ class _CalenderViewState extends State<CalenderView> {
     ]
   };
 
+  void selectDate(DateTime casheDate) {
+    selectedDate = casheDate;
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -217,6 +222,8 @@ class _CalenderViewState extends State<CalenderView> {
               now: now,
               casheDate: DateTime(date.year, date.month, i + 1),
               scheduleList: scheduleMap[DateTime(date.year, date.month, i + 1)],
+              selectedDate: selectedDate,
+              selectDate: selectDate,
             ));
             int repeatNumber = 7 - _listCache.length;
             if (date.add(Duration(days: i)).weekday == 7) {
@@ -253,27 +260,35 @@ class _CalenderItem extends StatelessWidget {
   final int day;
   final DateTime now;
   final DateTime casheDate;
+  final DateTime selectedDate;
   final List<Schedule>? scheduleList;
+  final Function selectDate;
   const _CalenderItem(
       {required this.day,
       required this.now,
       required this.casheDate,
+      required this.selectedDate,
       this.scheduleList,
+      required this.selectDate,
       Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool isSelected = (selectedDate.difference(casheDate).inDays == 0) &&
+        (selectedDate.day == casheDate.day);
     // 今日がどうかの判定
     bool isToday =
         (now.difference(casheDate).inDays == 0) && (now.day == casheDate.day);
     return Expanded(
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          selectDate(casheDate);
+        },
         child: Container(
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
-            color: Colors.orangeAccent.withOpacity(0.1),
+            color: isSelected ? Colors.redAccent.withOpacity(0.2) : null,
             border: Border.all(color: Colors.orangeAccent),
           ),
           child: Column(
