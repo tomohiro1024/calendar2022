@@ -21,6 +21,9 @@ class _CalenderViewState extends State<CalenderView> {
   late int initialIndex;
   int monthDuration = 0;
 
+  DateTime? selectedStartTime;
+  DateTime? selectedEndTime;
+
   Map<DateTime, List<Schedule>> scheduleMap = {
     DateTime(2023, 1, 9): [
       Schedule(
@@ -59,7 +62,7 @@ class _CalenderViewState extends State<CalenderView> {
         title: Text(
           DateFormat('yyyy年 M月')
               .format(DateTime(now.year, now.month + monthDuration)),
-          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         // 影をなくす
         elevation: 0,
@@ -95,6 +98,7 @@ class _CalenderViewState extends State<CalenderView> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.orangeAccent,
         onPressed: () {
+          selectedStartTime = selectedDate;
           showDialog(
               context: context,
               builder: (context) {
@@ -116,7 +120,16 @@ class _CalenderViewState extends State<CalenderView> {
         children: [
           Row(
             children: [
-              Expanded(child: TextField()),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        hintText: 'タイトルを追加', border: InputBorder.none),
+                  ),
+                ),
+              ),
+              // 削除ボタン
               IconButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -128,8 +141,11 @@ class _CalenderViewState extends State<CalenderView> {
                   color: Colors.red,
                 ),
               ),
+              // 追加ボタン
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 splashRadius: 15,
                 splashColor: Colors.green,
                 icon: Icon(
@@ -137,6 +153,43 @@ class _CalenderViewState extends State<CalenderView> {
                   color: Colors.green,
                 ),
               ),
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(DateFormat('yyyy').format(selectedStartTime!)),
+                    SizedBox(width: 5),
+                    Text(DateFormat('MM/dd').format(selectedStartTime!)),
+                    SizedBox(width: 5),
+                    Text(DateFormat('HH:mm').format(selectedStartTime!)),
+                  ],
+                ),
+              ),
+              Container(
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(selectedEndTime == null
+                        ? '-----'
+                        : DateFormat('yyyy').format(selectedEndTime!)),
+                    SizedBox(width: 5),
+                    Text(selectedEndTime == null
+                        ? '--/--'
+                        : DateFormat('MM/dd').format(selectedStartTime!)),
+                    SizedBox(width: 5),
+                    Text(selectedEndTime == null
+                        ? '--:--'
+                        : DateFormat('HH:mm').format(selectedStartTime!)),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
             ],
           ),
         ],
@@ -248,7 +301,7 @@ class _CalenderItem extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 margin:
                                     EdgeInsets.only(top: 2, left: 2, right: 2),
-                                color: Colors.blueAccent,
+                                color: Colors.green,
                                 child: Text(
                                   e.title,
                                   style: TextStyle(
