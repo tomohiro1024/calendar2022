@@ -32,6 +32,34 @@ class _CalenderViewState extends State<CalenderView> {
         endAt: DateTime(2023, 1, 9, 11),
       ),
     ],
+    DateTime(2023, 1, 9): [
+      Schedule(
+        title: 'shop',
+        startAt: DateTime(2023, 1, 9, 10),
+        endAt: DateTime(2023, 1, 9, 11),
+      ),
+    ],
+    DateTime(2023, 1, 9): [
+      Schedule(
+        title: 'shop',
+        startAt: DateTime(2023, 1, 9, 10),
+        endAt: DateTime(2023, 1, 9, 11),
+      ),
+    ],
+    DateTime(2023, 1, 9): [
+      Schedule(
+        title: 'shop',
+        startAt: DateTime(2023, 1, 9, 10),
+        endAt: DateTime(2023, 1, 9, 11),
+      ),
+    ],
+    DateTime(2023, 1, 9): [
+      Schedule(
+        title: 'shop',
+        startAt: DateTime(2023, 1, 9, 10),
+        endAt: DateTime(2023, 1, 9, 11),
+      ),
+    ],
     DateTime(2023, 1, 10): [
       Schedule(
         title: 'shop',
@@ -101,6 +129,9 @@ class _CalenderViewState extends State<CalenderView> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         backgroundColor: Colors.orangeAccent,
         onPressed: () {
           selectedStartTime = selectedDate;
@@ -119,6 +150,7 @@ class _CalenderViewState extends State<CalenderView> {
   }
 
   Widget buildAppScheduleDialog() {
+    final _editController = TextEditingController();
     return SimpleDialog(
       titlePadding: EdgeInsets.zero,
       title: Column(
@@ -128,7 +160,8 @@ class _CalenderViewState extends State<CalenderView> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TextField(
+                  child: TextFormField(
+                    controller: _editController,
                     decoration: InputDecoration(
                         hintText: 'タイトルを追加', border: InputBorder.none),
                   ),
@@ -137,7 +170,8 @@ class _CalenderViewState extends State<CalenderView> {
               // 削除ボタン
               IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  _editController.clear();
+                  // Navigator.pop(context);
                 },
                 splashRadius: 15,
                 splashColor: Colors.red,
@@ -162,17 +196,26 @@ class _CalenderViewState extends State<CalenderView> {
           ),
           Column(
             children: [
-              Container(
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(DateFormat('yyyy').format(selectedStartTime!)),
-                    SizedBox(width: 5),
-                    Text(DateFormat('MM/dd').format(selectedStartTime!)),
-                    SizedBox(width: 5),
-                    Text(DateFormat('HH:mm').format(selectedStartTime!)),
-                  ],
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return buildAppScheduleDialog();
+                      });
+                },
+                child: Container(
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(DateFormat('yyyy').format(selectedStartTime!)),
+                      SizedBox(width: 5),
+                      Text(DateFormat('MM/dd').format(selectedStartTime!)),
+                      SizedBox(width: 5),
+                      Text(DateFormat('HH:mm').format(selectedStartTime!)),
+                    ],
+                  ),
                 ),
               ),
               Container(
@@ -200,6 +243,10 @@ class _CalenderViewState extends State<CalenderView> {
         ],
       ),
     );
+  }
+
+  Widget buildSelectedTimeDialog() {
+    return SimpleDialog();
   }
 
   Widget createCalenderItem() {
@@ -311,12 +358,15 @@ class _CalenderItem extends StatelessWidget {
                   : Column(
                       children: scheduleList!
                           .map((e) => Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
                                 width: double.infinity,
                                 height: 20,
                                 alignment: Alignment.centerLeft,
                                 margin:
                                     EdgeInsets.only(top: 2, left: 2, right: 2),
-                                color: Colors.green,
                                 child: Text(
                                   e.title,
                                   style: TextStyle(
