@@ -201,7 +201,7 @@ class _CalenderViewState extends State<CalenderView> {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return buildAppScheduleDialog();
+                        return buildSelectedTimeDialog();
                       });
                 },
                 child: Container(
@@ -218,23 +218,32 @@ class _CalenderViewState extends State<CalenderView> {
                   ),
                 ),
               ),
-              Container(
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(selectedEndTime == null
-                        ? '-----'
-                        : DateFormat('yyyy').format(selectedEndTime!)),
-                    SizedBox(width: 5),
-                    Text(selectedEndTime == null
-                        ? '--/--'
-                        : DateFormat('MM/dd').format(selectedStartTime!)),
-                    SizedBox(width: 5),
-                    Text(selectedEndTime == null
-                        ? '--:--'
-                        : DateFormat('HH:mm').format(selectedStartTime!)),
-                  ],
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return buildSelectedTimeDialog();
+                      });
+                },
+                child: Container(
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(selectedEndTime == null
+                          ? '-----'
+                          : DateFormat('yyyy').format(selectedEndTime!)),
+                      SizedBox(width: 5),
+                      Text(selectedEndTime == null
+                          ? '--/--'
+                          : DateFormat('MM/dd').format(selectedStartTime!)),
+                      SizedBox(width: 5),
+                      Text(selectedEndTime == null
+                          ? '--:--'
+                          : DateFormat('HH:mm').format(selectedStartTime!)),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 10),
@@ -246,7 +255,54 @@ class _CalenderViewState extends State<CalenderView> {
   }
 
   Widget buildSelectedTimeDialog() {
-    return SimpleDialog();
+    return Padding(
+      padding: const EdgeInsets.only(top: 40.0),
+      child: SimpleDialog(
+        titlePadding: EdgeInsets.zero,
+        title: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('日時を選択'),
+                  ),
+                ),
+                // 削除ボタン
+                IconButton(
+                  onPressed: () {
+                    // _editController.clear();
+                    Navigator.pop(context);
+                  },
+                  splashRadius: 15,
+                  splashColor: Colors.red,
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.red,
+                  ),
+                ),
+                // 追加ボタン
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  splashRadius: 15,
+                  splashColor: Colors.green,
+                  icon: Icon(
+                    Icons.done,
+                    color: Colors.green,
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: 120,
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Widget createCalenderItem() {
