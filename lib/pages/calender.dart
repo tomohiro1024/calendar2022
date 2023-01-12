@@ -1,4 +1,5 @@
 import 'package:calendar202211/model/schedule.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -23,6 +24,21 @@ class _CalenderViewState extends State<CalenderView> {
 
   DateTime? selectedStartTime;
   DateTime? selectedEndTime;
+
+  late List<int> yearOption;
+  List<int> monthOption = List.generate(12, (index) => index + 1);
+  List<int>? dayOption;
+  void buildDayOption(DateTime selectedDate) {
+    List<int> _list = [];
+    for (int i = 1;
+        i <=
+            DateTime(selectedDate.year, selectedDate.month + 1, 1)
+                .subtract(Duration(days: 1))
+                .day;
+        i++) {
+      _list.add(i);
+    }
+  }
 
   Map<DateTime, List<Schedule>> scheduleMap = {
     DateTime(2023, 1, 9): [
@@ -77,6 +93,7 @@ class _CalenderViewState extends State<CalenderView> {
   @override
   void initState() {
     super.initState();
+    yearOption = [now.year, now.year + 1];
     selectedDate = now;
     initialIndex =
         (now.year - firstDay.year) * 12 + (now.month - firstDay.month);
@@ -266,7 +283,10 @@ class _CalenderViewState extends State<CalenderView> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('日時を選択'),
+                    child: Text(
+                      '日時を選択',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 // 削除ボタン
@@ -278,7 +298,7 @@ class _CalenderViewState extends State<CalenderView> {
                   splashRadius: 15,
                   splashColor: Colors.red,
                   icon: Icon(
-                    Icons.cancel,
+                    Icons.close,
                     color: Colors.red,
                   ),
                 ),
@@ -298,6 +318,24 @@ class _CalenderViewState extends State<CalenderView> {
             ),
             Container(
               height: 120,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CupertinoPicker(
+                        itemExtent: 35,
+                        onSelectedItemChanged: (int index) {},
+                        children: yearOption
+                            .map(
+                              (e) => Container(
+                                alignment: Alignment.center,
+                                height: 35,
+                                child: Text('$e'),
+                              ),
+                            )
+                            .toList()),
+                  ),
+                ],
+              ),
             )
           ],
         ),
