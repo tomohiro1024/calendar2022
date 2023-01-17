@@ -200,7 +200,7 @@ class _CalenderViewState extends State<CalenderView> {
                 splashRadius: 15,
                 splashColor: Colors.red,
                 icon: Icon(
-                  Icons.cancel,
+                  Icons.delete,
                   color: Colors.red,
                 ),
               ),
@@ -214,6 +214,18 @@ class _CalenderViewState extends State<CalenderView> {
                 icon: Icon(
                   Icons.done,
                   color: Colors.green,
+                ),
+              ),
+              //閉じるボタン
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                splashRadius: 15,
+                splashColor: Colors.red,
+                icon: Icon(
+                  Icons.close,
+                  color: Colors.red,
                 ),
               ),
             ],
