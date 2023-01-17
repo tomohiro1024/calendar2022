@@ -15,6 +15,7 @@ class _CalenderViewState extends State<CalenderView> {
   DateTime now = DateTime.now();
   //　曜日
   List<String> weekName = ['月', '火', '水', '木', '金', '土', '日'];
+  List<String> holiday = ['土', '日'];
   late PageController controller;
   DateTime firstDay = DateTime(2023, 1, 1);
   late DateTime selectedDate;
@@ -38,7 +39,11 @@ class _CalenderViewState extends State<CalenderView> {
         i++) {
       _list.add(i);
     }
+    dayOption = _list;
   }
+
+  List<int> hourOption = List.generate(24, (index) => index);
+  List<int> minuteOption = List.generate(60, (index) => index);
 
   Map<DateTime, List<Schedule>> scheduleMap = {
     DateTime(2023, 1, 9): [
@@ -133,7 +138,9 @@ class _CalenderViewState extends State<CalenderView> {
                               e,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: (e == '日') ? Colors.red : null,
+                                color: (holiday.any((name) => name == e))
+                                    ? Colors.red
+                                    : null,
                               ),
                             ),
                           ),
@@ -215,6 +222,7 @@ class _CalenderViewState extends State<CalenderView> {
             children: [
               GestureDetector(
                 onTap: () {
+                  buildDayOption(selectedDate);
                   showDialog(
                       context: context,
                       builder: (context) {
@@ -237,6 +245,7 @@ class _CalenderViewState extends State<CalenderView> {
               ),
               GestureDetector(
                 onTap: () {
+                  buildDayOption(selectedDate);
                   showDialog(
                       context: context,
                       builder: (context) {
@@ -321,10 +330,67 @@ class _CalenderViewState extends State<CalenderView> {
               child: Row(
                 children: [
                   Expanded(
+                    flex: 2,
                     child: CupertinoPicker(
                         itemExtent: 35,
                         onSelectedItemChanged: (int index) {},
                         children: yearOption
+                            .map(
+                              (e) => Container(
+                                alignment: Alignment.center,
+                                height: 35,
+                                child: Text('$e'),
+                              ),
+                            )
+                            .toList()),
+                  ),
+                  Expanded(
+                    child: CupertinoPicker(
+                        itemExtent: 35,
+                        onSelectedItemChanged: (int index) {},
+                        children: monthOption
+                            .map(
+                              (e) => Container(
+                                alignment: Alignment.center,
+                                height: 35,
+                                child: Text('$e'),
+                              ),
+                            )
+                            .toList()),
+                  ),
+                  Expanded(
+                    child: CupertinoPicker(
+                        itemExtent: 35,
+                        onSelectedItemChanged: (int index) {},
+                        children: dayOption!
+                            .map(
+                              (e) => Container(
+                                alignment: Alignment.center,
+                                height: 35,
+                                child: Text('$e'),
+                              ),
+                            )
+                            .toList()),
+                  ),
+                  Expanded(
+                    child: CupertinoPicker(
+                        itemExtent: 35,
+                        onSelectedItemChanged: (int index) {},
+                        children: hourOption
+                            .map(
+                              (e) => Container(
+                                alignment: Alignment.center,
+                                height: 35,
+                                child: Text('$e'),
+                              ),
+                            )
+                            .toList()),
+                  ),
+                  Expanded(
+                    child: CupertinoPicker(
+                        itemExtent: 35,
+                        onSelectedItemChanged: (int index) {},
+                        children: minuteOption
                             .map(
                               (e) => Container(
                                 alignment: Alignment.center,
