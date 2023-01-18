@@ -238,14 +238,15 @@ class _CalenderViewState extends State<CalenderView> {
               children: [
                 // 開始時刻
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     buildDayOption(selectedDate);
-                    showDialog(
+                    isSettingStartTime = true;
+                    await showDialog(
                         context: context,
                         builder: (context) {
-                          isSettingStartTime = true;
                           return buildSelectedTimeDialog();
                         });
+                    setState(() {});
                   },
                   child: Container(
                     height: 40,
