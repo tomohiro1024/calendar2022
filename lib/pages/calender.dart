@@ -155,6 +155,7 @@ class _CalenderViewState extends State<CalenderView> {
           ],
         ),
       ),
+      // 画面右下のプラスボタン
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -357,7 +358,23 @@ class _CalenderViewState extends State<CalenderView> {
                     flex: 2,
                     child: CupertinoPicker(
                         itemExtent: 35,
-                        onSelectedItemChanged: (int index) {},
+                        onSelectedItemChanged: (int index) {
+                          if (isSettingStartTime) {
+                            selectedStartTime = DateTime(
+                                yearOption[index],
+                                selectedStartTime!.month,
+                                selectedStartTime!.day,
+                                selectedStartTime!.hour,
+                                selectedStartTime!.minute);
+                          } else {
+                            selectedEndTime = DateTime(
+                                yearOption[index],
+                                selectedEndTime!.month,
+                                selectedEndTime!.day,
+                                selectedEndTime!.hour,
+                                selectedEndTime!.minute);
+                          }
+                        },
                         children: yearOption
                             .map(
                               (e) => Container(
