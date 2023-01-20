@@ -388,7 +388,23 @@ class _CalenderViewState extends State<CalenderView> {
                   Expanded(
                     child: CupertinoPicker(
                         itemExtent: 35,
-                        onSelectedItemChanged: (int index) {},
+                        onSelectedItemChanged: (int index) {
+                          if (isSettingStartTime) {
+                            selectedStartTime = DateTime(
+                                selectedStartTime!.year,
+                                monthOption[index],
+                                selectedStartTime!.day,
+                                selectedStartTime!.hour,
+                                selectedStartTime!.minute);
+                          } else {
+                            selectedEndTime = DateTime(
+                                selectedStartTime!.year,
+                                monthOption[index],
+                                selectedEndTime!.day,
+                                selectedEndTime!.hour,
+                                selectedEndTime!.minute);
+                          }
+                        },
                         children: monthOption
                             .map(
                               (e) => Container(
