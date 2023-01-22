@@ -354,6 +354,7 @@ class _CalenderViewState extends State<CalenderView> {
               height: 120,
               child: Row(
                 children: [
+                  // 年ピッカー
                   Expanded(
                     flex: 2,
                     child: CupertinoPicker(
@@ -385,6 +386,7 @@ class _CalenderViewState extends State<CalenderView> {
                             )
                             .toList()),
                   ),
+                  // 月ピッカー
                   Expanded(
                     child: CupertinoPicker(
                         itemExtent: 35,
@@ -415,6 +417,7 @@ class _CalenderViewState extends State<CalenderView> {
                             )
                             .toList()),
                   ),
+                  // 日ピッカー
                   Expanded(
                     child: CupertinoPicker(
                         itemExtent: 35,
@@ -429,6 +432,7 @@ class _CalenderViewState extends State<CalenderView> {
                             )
                             .toList()),
                   ),
+                  // 時ピッカー
                   Expanded(
                     child: CupertinoPicker(
                         itemExtent: 35,
@@ -443,6 +447,7 @@ class _CalenderViewState extends State<CalenderView> {
                             )
                             .toList()),
                   ),
+                  // 分ピッカー
                   Expanded(
                     child: CupertinoPicker(
                         itemExtent: 35,
