@@ -170,7 +170,7 @@ class _CalenderViewState extends State<CalenderView> {
               });
         },
         child: Icon(
-          Icons.add,
+          Icons.create,
           color: Colors.black,
         ),
       ),
@@ -360,6 +360,9 @@ class _CalenderViewState extends State<CalenderView> {
                     Expanded(
                       flex: 2,
                       child: CupertinoPicker(
+                          selectionOverlay:
+                              const CupertinoPickerDefaultSelectionOverlay(
+                                  background: Colors.transparent),
                           itemExtent: 35,
                           onSelectedItemChanged: (int index) {
                             if (isSettingStartTime) {
@@ -392,6 +395,9 @@ class _CalenderViewState extends State<CalenderView> {
                     // 月ピッカー
                     Expanded(
                       child: CupertinoPicker(
+                          selectionOverlay:
+                              const CupertinoPickerDefaultSelectionOverlay(
+                                  background: Colors.transparent),
                           itemExtent: 35,
                           onSelectedItemChanged: (int index) {
                             if (isSettingStartTime) {
@@ -427,6 +433,9 @@ class _CalenderViewState extends State<CalenderView> {
                     // 日ピッカー
                     Expanded(
                       child: CupertinoPicker(
+                          selectionOverlay:
+                              const CupertinoPickerDefaultSelectionOverlay(
+                                  background: Colors.transparent),
                           itemExtent: 35,
                           onSelectedItemChanged: (int index) {
                             if (isSettingStartTime) {
@@ -459,6 +468,9 @@ class _CalenderViewState extends State<CalenderView> {
                     // 時ピッカー
                     Expanded(
                       child: CupertinoPicker(
+                          selectionOverlay:
+                              const CupertinoPickerDefaultSelectionOverlay(
+                                  background: Colors.transparent),
                           itemExtent: 35,
                           onSelectedItemChanged: (int index) {
                             if (isSettingStartTime) {
@@ -491,6 +503,9 @@ class _CalenderViewState extends State<CalenderView> {
                     // 分ピッカー
                     Expanded(
                       child: CupertinoPicker(
+                          selectionOverlay:
+                              const CupertinoPickerDefaultSelectionOverlay(
+                                  background: Colors.transparent),
                           itemExtent: 35,
                           onSelectedItemChanged: (int index) {
                             if (isSettingStartTime) {
