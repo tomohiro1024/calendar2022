@@ -360,36 +360,42 @@ class _CalenderViewState extends State<CalenderView> {
                     Expanded(
                       flex: 2,
                       child: CupertinoPicker(
-                          selectionOverlay:
-                              const CupertinoPickerDefaultSelectionOverlay(
-                                  background: Colors.transparent),
-                          itemExtent: 35,
-                          onSelectedItemChanged: (int index) {
-                            if (isSettingStartTime) {
-                              selectedStartTime = DateTime(
-                                  yearOption[index],
-                                  selectedStartTime!.month,
-                                  selectedStartTime!.day,
-                                  selectedStartTime!.hour,
-                                  selectedStartTime!.minute);
-                            } else {
-                              selectedEndTime = DateTime(
-                                  yearOption[index],
-                                  selectedEndTime!.month,
-                                  selectedEndTime!.day,
-                                  selectedEndTime!.hour,
-                                  selectedEndTime!.minute);
-                            }
-                          },
-                          children: yearOption
-                              .map(
-                                (e) => Container(
-                                  alignment: Alignment.center,
-                                  height: 35,
-                                  child: Text('$e'),
-                                ),
-                              )
-                              .toList()),
+                        selectionOverlay:
+                            const CupertinoPickerDefaultSelectionOverlay(
+                                background: Colors.transparent),
+                        itemExtent: 35,
+                        onSelectedItemChanged: (int index) {
+                          if (isSettingStartTime) {
+                            selectedStartTime = DateTime(
+                                yearOption[index],
+                                selectedStartTime!.month,
+                                selectedStartTime!.day,
+                                selectedStartTime!.hour,
+                                selectedStartTime!.minute);
+                          } else {
+                            selectedEndTime = DateTime(
+                                yearOption[index],
+                                selectedEndTime!.month,
+                                selectedEndTime!.day,
+                                selectedEndTime!.hour,
+                                selectedEndTime!.minute);
+                          }
+                        },
+                        children: yearOption
+                            .map(
+                              (e) => Container(
+                                alignment: Alignment.center,
+                                height: 35,
+                                child: Text('$e'),
+                              ),
+                            )
+                            .toList(),
+                        scrollController: FixedExtentScrollController(
+                          initialItem: yearOption.indexOf(isSettingStartTime
+                              ? selectedStartTime!.year
+                              : selectedEndTime!.year),
+                        ),
+                      ),
                     ),
                     Text('年'),
                     // 月ピッカー
