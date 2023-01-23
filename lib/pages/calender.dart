@@ -353,6 +353,7 @@ class _CalenderViewState extends State<CalenderView> {
               ),
               Container(
                 height: 120,
+                width: 350,
                 child: Row(
                   children: [
                     // 年ピッカー
@@ -387,6 +388,7 @@ class _CalenderViewState extends State<CalenderView> {
                               )
                               .toList()),
                     ),
+                    Text('年'),
                     // 月ピッカー
                     Expanded(
                       child: CupertinoPicker(
@@ -402,7 +404,7 @@ class _CalenderViewState extends State<CalenderView> {
                               buildDayOption(selectedStartTime!);
                             } else {
                               selectedEndTime = DateTime(
-                                  selectedStartTime!.year,
+                                  selectedEndTime!.year,
                                   monthOption[index],
                                   selectedEndTime!.day,
                                   selectedEndTime!.hour,
@@ -421,11 +423,28 @@ class _CalenderViewState extends State<CalenderView> {
                               )
                               .toList()),
                     ),
+                    Text('月'),
                     // 日ピッカー
                     Expanded(
                       child: CupertinoPicker(
                           itemExtent: 35,
-                          onSelectedItemChanged: (int index) {},
+                          onSelectedItemChanged: (int index) {
+                            if (isSettingStartTime) {
+                              selectedStartTime = DateTime(
+                                  selectedStartTime!.year,
+                                  selectedStartTime!.month,
+                                  dayOption![index],
+                                  selectedStartTime!.hour,
+                                  selectedStartTime!.minute);
+                            } else {
+                              selectedEndTime = DateTime(
+                                  selectedEndTime!.year,
+                                  selectedEndTime!.month,
+                                  dayOption![index],
+                                  selectedEndTime!.hour,
+                                  selectedEndTime!.minute);
+                            }
+                          },
                           children: dayOption!
                               .map(
                                 (e) => Container(
@@ -436,11 +455,28 @@ class _CalenderViewState extends State<CalenderView> {
                               )
                               .toList()),
                     ),
+                    Text('日'),
                     // 時ピッカー
                     Expanded(
                       child: CupertinoPicker(
                           itemExtent: 35,
-                          onSelectedItemChanged: (int index) {},
+                          onSelectedItemChanged: (int index) {
+                            if (isSettingStartTime) {
+                              selectedStartTime = DateTime(
+                                  selectedStartTime!.year,
+                                  selectedStartTime!.month,
+                                  selectedStartTime!.day,
+                                  hourOption[index],
+                                  selectedStartTime!.minute);
+                            } else {
+                              selectedEndTime = DateTime(
+                                  selectedEndTime!.year,
+                                  selectedEndTime!.month,
+                                  selectedEndTime!.day,
+                                  hourOption[index],
+                                  selectedEndTime!.minute);
+                            }
+                          },
                           children: hourOption
                               .map(
                                 (e) => Container(
@@ -451,11 +487,28 @@ class _CalenderViewState extends State<CalenderView> {
                               )
                               .toList()),
                     ),
+                    Text('時'),
                     // 分ピッカー
                     Expanded(
                       child: CupertinoPicker(
                           itemExtent: 35,
-                          onSelectedItemChanged: (int index) {},
+                          onSelectedItemChanged: (int index) {
+                            if (isSettingStartTime) {
+                              selectedStartTime = DateTime(
+                                  selectedStartTime!.year,
+                                  selectedStartTime!.month,
+                                  selectedStartTime!.day,
+                                  selectedStartTime!.hour,
+                                  minuteOption[index]);
+                            } else {
+                              selectedEndTime = DateTime(
+                                  selectedEndTime!.year,
+                                  selectedEndTime!.month,
+                                  selectedEndTime!.day,
+                                  selectedEndTime!.hour,
+                                  minuteOption[index]);
+                            }
+                          },
                           children: minuteOption
                               .map(
                                 (e) => Container(
@@ -466,6 +519,7 @@ class _CalenderViewState extends State<CalenderView> {
                               )
                               .toList()),
                     ),
+                    Text('分'),
                   ],
                 ),
               )
