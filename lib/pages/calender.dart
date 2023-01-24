@@ -276,7 +276,10 @@ class _CalenderViewState extends State<CalenderView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('開始'),
+                        Text(
+                          '開始',
+                          style: TextStyle(color: Colors.pink),
+                        ),
                         SizedBox(width: 10),
                         Text(DateFormat('yyyy').format(selectedStartTime!)),
                         SizedBox(width: 5),
@@ -305,7 +308,10 @@ class _CalenderViewState extends State<CalenderView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('終了'),
+                        Text(
+                          '終了',
+                          style: TextStyle(color: Colors.blue),
+                        ),
                         SizedBox(width: 10),
                         Text(selectedEndTime == null
                             ? '-----'
