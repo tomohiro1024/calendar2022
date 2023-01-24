@@ -212,28 +212,28 @@ class _CalenderViewState extends State<CalenderView> {
                 // 追加ボタン
                 IconButton(
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text('スケジュールの追加'),
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: [
-                              Text('スケジュールの追加をしました。'),
-                            ],
-                          ),
-                        ),
-                        actions: [
-                          TextButton(
-                            child: Text('閉じる'),
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .popUntil((route) => route.isFirst);
-                            },
-                          ),
-                        ],
-                      ),
-                    );
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (context) => AlertDialog(
+                    //     title: Text('スケジュールの追加'),
+                    //     content: SingleChildScrollView(
+                    //       child: ListBody(
+                    //         children: [
+                    //           Text('スケジュールの追加をしました。'),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     actions: [
+                    //       TextButton(
+                    //         child: Text('閉じる'),
+                    //         onPressed: () {
+                    //           Navigator.of(context)
+                    //               .popUntil((route) => route.isFirst);
+                    //         },
+                    //       ),
+                    //     ],
+                    //   ),
+                    // );
                     // Navigator.pop(context);
                   },
                   splashRadius: 15,
@@ -605,6 +605,18 @@ class _CalenderViewState extends State<CalenderView> {
         );
       }),
     );
+  }
+
+  bool? validationIsOk() {
+    if (selectedEndTime == null) {
+      print('終了が入力されていない。');
+      return false;
+    } else if (selectedStartTime!.isAfter(selectedEndTime!)) {
+      print('開始が終了より遅い。');
+    } else {
+      print('正常');
+      return true;
+    }
   }
 
   Widget createCalenderItem() {
