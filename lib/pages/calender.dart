@@ -212,7 +212,29 @@ class _CalenderViewState extends State<CalenderView> {
                 // 追加ボタン
                 IconButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('スケジュールの追加'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: [
+                              Text('スケジュールの追加をしました。'),
+                            ],
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            child: Text('閉じる'),
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                    // Navigator.pop(context);
                   },
                   splashRadius: 15,
                   splashColor: Colors.green,
