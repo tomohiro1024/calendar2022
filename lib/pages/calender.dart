@@ -433,144 +433,168 @@ class _CalenderViewState extends State<CalenderView> {
                     // 月ピッカー
                     Expanded(
                       child: CupertinoPicker(
-                          selectionOverlay:
-                              const CupertinoPickerDefaultSelectionOverlay(
-                                  background: Colors.transparent),
-                          itemExtent: 35,
-                          onSelectedItemChanged: (int index) {
-                            if (isSettingStartTime) {
-                              selectedStartTime = DateTime(
-                                  selectedStartTime!.year,
-                                  monthOption[index],
-                                  selectedStartTime!.day,
-                                  selectedStartTime!.hour,
-                                  selectedStartTime!.minute);
-                              buildDayOption(selectedStartTime!);
-                            } else {
-                              selectedEndTime = DateTime(
-                                  selectedEndTime!.year,
-                                  monthOption[index],
-                                  selectedEndTime!.day,
-                                  selectedEndTime!.hour,
-                                  selectedEndTime!.minute);
-                              buildDayOption(selectedEndTime!);
-                            }
-                            setState(() {});
-                          },
-                          children: monthOption
-                              .map(
-                                (e) => Container(
-                                  alignment: Alignment.center,
-                                  height: 35,
-                                  child: Text('$e'),
-                                ),
-                              )
-                              .toList()),
+                        selectionOverlay:
+                            const CupertinoPickerDefaultSelectionOverlay(
+                                background: Colors.transparent),
+                        itemExtent: 35,
+                        onSelectedItemChanged: (int index) {
+                          if (isSettingStartTime) {
+                            selectedStartTime = DateTime(
+                                selectedStartTime!.year,
+                                monthOption[index],
+                                selectedStartTime!.day,
+                                selectedStartTime!.hour,
+                                selectedStartTime!.minute);
+                            buildDayOption(selectedStartTime!);
+                          } else {
+                            selectedEndTime = DateTime(
+                                selectedEndTime!.year,
+                                monthOption[index],
+                                selectedEndTime!.day,
+                                selectedEndTime!.hour,
+                                selectedEndTime!.minute);
+                            buildDayOption(selectedEndTime!);
+                          }
+                          setState(() {});
+                        },
+                        children: monthOption
+                            .map(
+                              (e) => Container(
+                                alignment: Alignment.center,
+                                height: 35,
+                                child: Text('$e'),
+                              ),
+                            )
+                            .toList(),
+                        scrollController: FixedExtentScrollController(
+                          initialItem: monthOption.indexOf(isSettingStartTime
+                              ? selectedStartTime!.month
+                              : selectedEndTime!.month),
+                        ),
+                      ),
                     ),
                     Text('月'),
                     // 日ピッカー
                     Expanded(
                       child: CupertinoPicker(
-                          selectionOverlay:
-                              const CupertinoPickerDefaultSelectionOverlay(
-                                  background: Colors.transparent),
-                          itemExtent: 35,
-                          onSelectedItemChanged: (int index) {
-                            if (isSettingStartTime) {
-                              selectedStartTime = DateTime(
-                                  selectedStartTime!.year,
-                                  selectedStartTime!.month,
-                                  dayOption![index],
-                                  selectedStartTime!.hour,
-                                  selectedStartTime!.minute);
-                            } else {
-                              selectedEndTime = DateTime(
-                                  selectedEndTime!.year,
-                                  selectedEndTime!.month,
-                                  dayOption![index],
-                                  selectedEndTime!.hour,
-                                  selectedEndTime!.minute);
-                            }
-                          },
-                          children: dayOption!
-                              .map(
-                                (e) => Container(
-                                  alignment: Alignment.center,
-                                  height: 35,
-                                  child: Text('$e'),
-                                ),
-                              )
-                              .toList()),
+                        selectionOverlay:
+                            const CupertinoPickerDefaultSelectionOverlay(
+                                background: Colors.transparent),
+                        itemExtent: 35,
+                        onSelectedItemChanged: (int index) {
+                          if (isSettingStartTime) {
+                            selectedStartTime = DateTime(
+                                selectedStartTime!.year,
+                                selectedStartTime!.month,
+                                dayOption![index],
+                                selectedStartTime!.hour,
+                                selectedStartTime!.minute);
+                          } else {
+                            selectedEndTime = DateTime(
+                                selectedEndTime!.year,
+                                selectedEndTime!.month,
+                                dayOption![index],
+                                selectedEndTime!.hour,
+                                selectedEndTime!.minute);
+                          }
+                        },
+                        children: dayOption!
+                            .map(
+                              (e) => Container(
+                                alignment: Alignment.center,
+                                height: 35,
+                                child: Text('$e'),
+                              ),
+                            )
+                            .toList(),
+                        scrollController: FixedExtentScrollController(
+                          initialItem: dayOption!.indexOf(isSettingStartTime
+                              ? selectedStartTime!.day
+                              : selectedEndTime!.day),
+                        ),
+                      ),
                     ),
                     Text('日'),
                     // 時ピッカー
                     Expanded(
                       child: CupertinoPicker(
-                          selectionOverlay:
-                              const CupertinoPickerDefaultSelectionOverlay(
-                                  background: Colors.transparent),
-                          itemExtent: 35,
-                          onSelectedItemChanged: (int index) {
-                            if (isSettingStartTime) {
-                              selectedStartTime = DateTime(
-                                  selectedStartTime!.year,
-                                  selectedStartTime!.month,
-                                  selectedStartTime!.day,
-                                  hourOption[index],
-                                  selectedStartTime!.minute);
-                            } else {
-                              selectedEndTime = DateTime(
-                                  selectedEndTime!.year,
-                                  selectedEndTime!.month,
-                                  selectedEndTime!.day,
-                                  hourOption[index],
-                                  selectedEndTime!.minute);
-                            }
-                          },
-                          children: hourOption
-                              .map(
-                                (e) => Container(
-                                  alignment: Alignment.center,
-                                  height: 35,
-                                  child: Text('$e'),
-                                ),
-                              )
-                              .toList()),
+                        selectionOverlay:
+                            const CupertinoPickerDefaultSelectionOverlay(
+                                background: Colors.transparent),
+                        itemExtent: 35,
+                        onSelectedItemChanged: (int index) {
+                          if (isSettingStartTime) {
+                            selectedStartTime = DateTime(
+                                selectedStartTime!.year,
+                                selectedStartTime!.month,
+                                selectedStartTime!.day,
+                                hourOption[index],
+                                selectedStartTime!.minute);
+                          } else {
+                            selectedEndTime = DateTime(
+                                selectedEndTime!.year,
+                                selectedEndTime!.month,
+                                selectedEndTime!.day,
+                                hourOption[index],
+                                selectedEndTime!.minute);
+                          }
+                        },
+                        children: hourOption
+                            .map(
+                              (e) => Container(
+                                alignment: Alignment.center,
+                                height: 35,
+                                child: Text('$e'),
+                              ),
+                            )
+                            .toList(),
+                        scrollController: FixedExtentScrollController(
+                          initialItem: hourOption.indexOf(isSettingStartTime
+                              ? selectedStartTime!.hour
+                              : selectedEndTime!.hour),
+                        ),
+                      ),
                     ),
                     Text('時'),
                     // 分ピッカー
                     Expanded(
                       child: CupertinoPicker(
-                          selectionOverlay:
-                              const CupertinoPickerDefaultSelectionOverlay(
-                                  background: Colors.transparent),
-                          itemExtent: 35,
-                          onSelectedItemChanged: (int index) {
-                            if (isSettingStartTime) {
-                              selectedStartTime = DateTime(
-                                  selectedStartTime!.year,
-                                  selectedStartTime!.month,
-                                  selectedStartTime!.day,
-                                  selectedStartTime!.hour,
-                                  minuteOption[index]);
-                            } else {
-                              selectedEndTime = DateTime(
-                                  selectedEndTime!.year,
-                                  selectedEndTime!.month,
-                                  selectedEndTime!.day,
-                                  selectedEndTime!.hour,
-                                  minuteOption[index]);
-                            }
-                          },
-                          children: minuteOption
-                              .map(
-                                (e) => Container(
-                                  alignment: Alignment.center,
-                                  height: 35,
-                                  child: Text('$e'),
-                                ),
-                              )
-                              .toList()),
+                        selectionOverlay:
+                            const CupertinoPickerDefaultSelectionOverlay(
+                                background: Colors.transparent),
+                        itemExtent: 35,
+                        onSelectedItemChanged: (int index) {
+                          if (isSettingStartTime) {
+                            selectedStartTime = DateTime(
+                                selectedStartTime!.year,
+                                selectedStartTime!.month,
+                                selectedStartTime!.day,
+                                selectedStartTime!.hour,
+                                minuteOption[index]);
+                          } else {
+                            selectedEndTime = DateTime(
+                                selectedEndTime!.year,
+                                selectedEndTime!.month,
+                                selectedEndTime!.day,
+                                selectedEndTime!.hour,
+                                minuteOption[index]);
+                          }
+                        },
+                        children: minuteOption
+                            .map(
+                              (e) => Container(
+                                alignment: Alignment.center,
+                                height: 35,
+                                child: Text('$e'),
+                              ),
+                            )
+                            .toList(),
+                        scrollController: FixedExtentScrollController(
+                          initialItem: minuteOption.indexOf(isSettingStartTime
+                              ? selectedStartTime!.minute
+                              : selectedEndTime!.minute),
+                        ),
+                      ),
                     ),
                     Text('分'),
                   ],
