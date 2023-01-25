@@ -11,6 +11,7 @@ class CalenderView extends StatefulWidget {
 }
 
 class _CalenderViewState extends State<CalenderView> {
+  final formKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
   // 現在時刻の取得
   DateTime now = DateTime.now();
@@ -181,26 +182,26 @@ class _CalenderViewState extends State<CalenderView> {
   }
 
   Widget buildAppScheduleDialog() {
-    final formKey = GlobalKey<FormState>();
     // final _editController = TextEditingController();
     return StatefulBuilder(builder: (context, setState) {
       return SimpleDialog(
         titlePadding: EdgeInsets.zero,
-        title: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              Row(
+        title: Column(
+          children: [
+            Form(
+              key: formKey,
+              child: Row(
                 children: [
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         controller: titleController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
                             hintText: 'タイトルを追加', border: InputBorder.none),
                         validator: (val) {
-                          if (val == null || val.isEmpty) {
+                          if (val!.isEmpty) {
                             return '空白です';
                           }
                           return null;
@@ -224,9 +225,10 @@ class _CalenderViewState extends State<CalenderView> {
                   // 追加ボタン
                   IconButton(
                     onPressed: () {
-                      final isFormValidate = formKey.currentState!.validate();
-                      if (isFormValidate) {
-                        return;
+                      if (formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Processing Data')),
+                        );
                       }
                       if (!validationIsOk()) {
                         return;
@@ -297,82 +299,82 @@ class _CalenderViewState extends State<CalenderView> {
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  // 開始時刻
-                  GestureDetector(
-                    onTap: () async {
-                      buildDayOption(selectedDate);
-                      isSettingStartTime = true;
-                      await showDialog(
-                          context: context,
-                          builder: (context) {
-                            return buildSelectedTimeDialog();
-                          });
-                      setState(() {});
-                    },
-                    child: Container(
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '開始',
-                            style: TextStyle(color: Colors.pink),
-                          ),
-                          SizedBox(width: 10),
-                          Text(DateFormat('yyyy').format(selectedStartTime!)),
-                          SizedBox(width: 5),
-                          Text(DateFormat('MM/dd').format(selectedStartTime!)),
-                          SizedBox(width: 5),
-                          Text(DateFormat('HH:mm').format(selectedStartTime!)),
-                        ],
-                      ),
+            ),
+            Column(
+              children: [
+                // 開始時刻
+                GestureDetector(
+                  onTap: () async {
+                    buildDayOption(selectedDate);
+                    isSettingStartTime = true;
+                    await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return buildSelectedTimeDialog();
+                        });
+                    setState(() {});
+                  },
+                  child: Container(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '開始',
+                          style: TextStyle(color: Colors.pink),
+                        ),
+                        SizedBox(width: 10),
+                        Text(DateFormat('yyyy').format(selectedStartTime!)),
+                        SizedBox(width: 5),
+                        Text(DateFormat('MM/dd').format(selectedStartTime!)),
+                        SizedBox(width: 5),
+                        Text(DateFormat('HH:mm').format(selectedStartTime!)),
+                      ],
                     ),
                   ),
-                  // 終了時刻
-                  GestureDetector(
-                    onTap: () async {
-                      buildDayOption(selectedDate);
-                      isSettingStartTime = false;
-                      selectedEndTime ??= selectedStartTime;
-                      await showDialog(
-                          context: context,
-                          builder: (context) {
-                            return buildSelectedTimeDialog();
-                          });
-                      setState(() {});
-                    },
-                    child: Container(
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '終了',
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                          SizedBox(width: 10),
-                          Text(selectedEndTime == null
-                              ? '-----'
-                              : DateFormat('yyyy').format(selectedEndTime!)),
-                          SizedBox(width: 5),
-                          Text(selectedEndTime == null
-                              ? '--/--'
-                              : DateFormat('MM/dd').format(selectedEndTime!)),
-                          SizedBox(width: 5),
-                          Text(selectedEndTime == null
-                              ? '--:--'
-                              : DateFormat('HH:mm').format(selectedEndTime!)),
-                        ],
-                      ),
+                ),
+                // 終了時刻
+                GestureDetector(
+                  onTap: () async {
+                    buildDayOption(selectedDate);
+                    isSettingStartTime = false;
+                    selectedEndTime ??= selectedStartTime;
+                    await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return buildSelectedTimeDialog();
+                        });
+                    setState(() {});
+                  },
+                  child: Container(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '終了',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                        SizedBox(width: 10),
+                        Text(selectedEndTime == null
+                            ? '-----'
+                            : DateFormat('yyyy').format(selectedEndTime!)),
+                        SizedBox(width: 5),
+                        Text(selectedEndTime == null
+                            ? '--/--'
+                            : DateFormat('MM/dd').format(selectedEndTime!)),
+                        SizedBox(width: 5),
+                        Text(selectedEndTime == null
+                            ? '--:--'
+                            : DateFormat('HH:mm').format(selectedEndTime!)),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 10),
-                ],
-              ),
-            ],
-          ),
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+          ],
         ),
       );
     });
