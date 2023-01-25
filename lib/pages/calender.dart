@@ -11,6 +11,7 @@ class CalenderView extends StatefulWidget {
 }
 
 class _CalenderViewState extends State<CalenderView> {
+  TextEditingController titleController = TextEditingController();
   // 現在時刻の取得
   DateTime now = DateTime.now();
   //　曜日
@@ -161,13 +162,15 @@ class _CalenderViewState extends State<CalenderView> {
           borderRadius: BorderRadius.circular(20),
         ),
         backgroundColor: Colors.orangeAccent,
-        onPressed: () {
+        onPressed: () async {
           selectedStartTime = selectedDate;
-          showDialog(
+          await showDialog(
               context: context,
               builder: (context) {
                 return buildAppScheduleDialog();
               });
+          titleController.clear();
+          setState(() {});
         },
         child: Icon(
           Icons.create,
@@ -178,168 +181,204 @@ class _CalenderViewState extends State<CalenderView> {
   }
 
   Widget buildAppScheduleDialog() {
-    final _editController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
+    // final _editController = TextEditingController();
     return StatefulBuilder(builder: (context, setState) {
       return SimpleDialog(
         titlePadding: EdgeInsets.zero,
-        title: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: _editController,
-                      decoration: InputDecoration(
-                          hintText: 'タイトルを追加', border: InputBorder.none),
+        title: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: titleController,
+                        decoration: InputDecoration(
+                            hintText: 'タイトルを追加', border: InputBorder.none),
+                        validator: (val) {
+                          if (val == null || val.isEmpty) {
+                            return '空白です';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                   ),
-                ),
-                // 削除ボタン
-                IconButton(
-                  onPressed: () {
-                    _editController.clear();
-                    // Navigator.pop(context);
-                  },
-                  splashRadius: 15,
-                  splashColor: Colors.red,
-                  icon: Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                ),
-                // 追加ボタン
-                IconButton(
-                  onPressed: () {
-                    if (!validationIsOk()) {
-                      return;
-                    }
-                    // showDialog(
-                    //   context: context,
-                    //   builder: (context) => AlertDialog(
-                    //     title: Text('スケジュールの追加'),
-                    //     content: SingleChildScrollView(
-                    //       child: ListBody(
-                    //         children: [
-                    //           Text('スケジュールの追加をしました。'),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //     actions: [
-                    //       TextButton(
-                    //         child: Text('閉じる'),
-                    //         onPressed: () {
-                    //           Navigator.of(context)
-                    //               .popUntil((route) => route.isFirst);
-                    //         },
-                    //       ),
-                    //     ],
-                    //   ),
-                    // );
-                    Navigator.pop(context);
-                  },
-                  splashRadius: 15,
-                  splashColor: Colors.green,
-                  icon: Icon(
-                    Icons.done,
-                    color: Colors.green,
-                  ),
-                ),
-                //閉じるボタン
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  splashRadius: 15,
-                  splashColor: Colors.red,
-                  icon: Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                // 開始時刻
-                GestureDetector(
-                  onTap: () async {
-                    buildDayOption(selectedDate);
-                    isSettingStartTime = true;
-                    await showDialog(
-                        context: context,
-                        builder: (context) {
-                          return buildSelectedTimeDialog();
-                        });
-                    setState(() {});
-                  },
-                  child: Container(
-                    height: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '開始',
-                          style: TextStyle(color: Colors.pink),
-                        ),
-                        SizedBox(width: 10),
-                        Text(DateFormat('yyyy').format(selectedStartTime!)),
-                        SizedBox(width: 5),
-                        Text(DateFormat('MM/dd').format(selectedStartTime!)),
-                        SizedBox(width: 5),
-                        Text(DateFormat('HH:mm').format(selectedStartTime!)),
-                      ],
+                  // 削除ボタン
+                  IconButton(
+                    onPressed: () {
+                      titleController.clear();
+                      // Navigator.pop(context);
+                    },
+                    splashRadius: 15,
+                    splashColor: Colors.red,
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red,
                     ),
                   ),
-                ),
-                // 終了時刻
-                GestureDetector(
-                  onTap: () async {
-                    buildDayOption(selectedDate);
-                    isSettingStartTime = false;
-                    selectedEndTime ??= selectedStartTime;
-                    await showDialog(
-                        context: context,
-                        builder: (context) {
-                          return buildSelectedTimeDialog();
-                        });
-                    setState(() {});
-                  },
-                  child: Container(
-                    height: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '終了',
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                        SizedBox(width: 10),
-                        Text(selectedEndTime == null
-                            ? '-----'
-                            : DateFormat('yyyy').format(selectedEndTime!)),
-                        SizedBox(width: 5),
-                        Text(selectedEndTime == null
-                            ? '--/--'
-                            : DateFormat('MM/dd').format(selectedEndTime!)),
-                        SizedBox(width: 5),
-                        Text(selectedEndTime == null
-                            ? '--:--'
-                            : DateFormat('HH:mm').format(selectedEndTime!)),
-                      ],
+                  // 追加ボタン
+                  IconButton(
+                    onPressed: () {
+                      final isFormValidate = formKey.currentState!.validate();
+                      if (isFormValidate) {
+                        return;
+                      }
+                      if (!validationIsOk()) {
+                        return;
+                      }
+
+                      DateTime checkScheduleTime = DateTime(
+                          selectedStartTime!.year,
+                          selectedStartTime!.month,
+                          selectedStartTime!.day);
+
+                      Schedule newSchedule = Schedule(
+                          title: titleController.text,
+                          startAt: selectedStartTime!,
+                          endAt: selectedEndTime!);
+
+                      // scheduleMapに選択している日付のキーが含まれている場合
+                      if (scheduleMap.containsKey(checkScheduleTime)) {
+                        scheduleMap[checkScheduleTime]!.add(newSchedule);
+                      } else {
+                        // キーが存在していない場合、キーに新しいスケジュールの情報を入れる
+                        scheduleMap[checkScheduleTime] = [newSchedule];
+                      }
+
+                      selectedEndTime = null;
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) => AlertDialog(
+                      //     title: Text('スケジュールの追加'),
+                      //     content: SingleChildScrollView(
+                      //       child: ListBody(
+                      //         children: [
+                      //           Text('スケジュールの追加をしました。'),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     actions: [
+                      //       TextButton(
+                      //         child: Text('閉じる'),
+                      //         onPressed: () {
+                      //           Navigator.of(context)
+                      //               .popUntil((route) => route.isFirst);
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // );
+
+                      Navigator.pop(context);
+                    },
+                    splashRadius: 15,
+                    splashColor: Colors.green,
+                    icon: Icon(
+                      Icons.done,
+                      color: Colors.green,
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-              ],
-            ),
-          ],
+                  //閉じるボタン
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    splashRadius: 15,
+                    splashColor: Colors.red,
+                    icon: Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  // 開始時刻
+                  GestureDetector(
+                    onTap: () async {
+                      buildDayOption(selectedDate);
+                      isSettingStartTime = true;
+                      await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return buildSelectedTimeDialog();
+                          });
+                      setState(() {});
+                    },
+                    child: Container(
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '開始',
+                            style: TextStyle(color: Colors.pink),
+                          ),
+                          SizedBox(width: 10),
+                          Text(DateFormat('yyyy').format(selectedStartTime!)),
+                          SizedBox(width: 5),
+                          Text(DateFormat('MM/dd').format(selectedStartTime!)),
+                          SizedBox(width: 5),
+                          Text(DateFormat('HH:mm').format(selectedStartTime!)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // 終了時刻
+                  GestureDetector(
+                    onTap: () async {
+                      buildDayOption(selectedDate);
+                      isSettingStartTime = false;
+                      selectedEndTime ??= selectedStartTime;
+                      await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return buildSelectedTimeDialog();
+                          });
+                      setState(() {});
+                    },
+                    child: Container(
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '終了',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                          SizedBox(width: 10),
+                          Text(selectedEndTime == null
+                              ? '-----'
+                              : DateFormat('yyyy').format(selectedEndTime!)),
+                          SizedBox(width: 5),
+                          Text(selectedEndTime == null
+                              ? '--/--'
+                              : DateFormat('MM/dd').format(selectedEndTime!)),
+                          SizedBox(width: 5),
+                          Text(selectedEndTime == null
+                              ? '--:--'
+                              : DateFormat('HH:mm').format(selectedEndTime!)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ],
+          ),
         ),
       );
     });
   }
 
+  // スケジュールを表示するWidget
   Widget buildSelectedTimeDialog() {
     return Padding(
       padding: const EdgeInsets.only(top: 40.0),
@@ -374,7 +413,7 @@ class _CalenderViewState extends State<CalenderView> {
                   // 削除ボタン
                   IconButton(
                     onPressed: () {
-                      // _editController.clear();
+                      titleController.clear();
                       Navigator.pop(context);
                     },
                     splashRadius: 15,
@@ -712,47 +751,49 @@ class _CalenderItem extends StatelessWidget {
             color: isSelected ? Colors.redAccent.withOpacity(0.2) : null,
             border: Border.all(color: Colors.orangeAccent),
           ),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: isToday ? Colors.orange : null,
-                  borderRadius: BorderRadius.circular(10),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: isToday ? Colors.orange : null,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  alignment: Alignment.topCenter,
+                  width: 20,
+                  height: 20,
+                  child: Text(
+                    '$day',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
-                alignment: Alignment.topCenter,
-                width: 20,
-                height: 20,
-                child: Text(
-                  '$day',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              scheduleList == null
-                  ? Container()
-                  : Column(
-                      children: scheduleList!
-                          .map((e) => Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                width: double.infinity,
-                                height: 20,
-                                alignment: Alignment.centerLeft,
-                                margin:
-                                    EdgeInsets.only(top: 2, left: 2, right: 2),
-                                child: Text(
-                                  e.title,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ))
-                          .toList(),
-                    )
-            ],
+                scheduleList == null
+                    ? Container()
+                    : Column(
+                        children: scheduleList!
+                            .map((e) => Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  width: double.infinity,
+                                  height: 20,
+                                  alignment: Alignment.centerLeft,
+                                  margin: EdgeInsets.only(
+                                      top: 2, left: 2, right: 2),
+                                  child: Text(
+                                    e.title,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ))
+                            .toList(),
+                      )
+              ],
+            ),
           ),
         ),
       ),
