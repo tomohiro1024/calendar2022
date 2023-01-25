@@ -212,6 +212,9 @@ class _CalenderViewState extends State<CalenderView> {
                 // 追加ボタン
                 IconButton(
                   onPressed: () {
+                    if (!validationIsOk()) {
+                      return;
+                    }
                     // showDialog(
                     //   context: context,
                     //   builder: (context) => AlertDialog(
@@ -234,7 +237,7 @@ class _CalenderViewState extends State<CalenderView> {
                     //     ],
                     //   ),
                     // );
-                    // Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   splashRadius: 15,
                   splashColor: Colors.green,
@@ -607,12 +610,13 @@ class _CalenderViewState extends State<CalenderView> {
     );
   }
 
-  bool? validationIsOk() {
+  bool validationIsOk() {
     if (selectedEndTime == null) {
       print('終了が入力されていない。');
       return false;
     } else if (selectedStartTime!.isAfter(selectedEndTime!)) {
       print('開始が終了より遅い。');
+      return false;
     } else {
       print('正常');
       return true;
