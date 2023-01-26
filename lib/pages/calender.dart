@@ -202,7 +202,7 @@ class _CalenderViewState extends State<CalenderView> {
                             hintText: 'タイトルを追加', border: InputBorder.none),
                         validator: (val) {
                           if (val!.isEmpty) {
-                            return '空白です';
+                            return '入力してください。';
                           }
                           return null;
                         },
@@ -234,6 +234,7 @@ class _CalenderViewState extends State<CalenderView> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
+                                  backgroundColor: Colors.redAccent.shade200,
                                   title: Text('エラー'),
                                   content: SingleChildScrollView(
                                     child: ListBody(
@@ -244,7 +245,10 @@ class _CalenderViewState extends State<CalenderView> {
                                   ),
                                   actions: [
                                     TextButton(
-                                      child: Text('閉じる'),
+                                      child: Text(
+                                        '閉じる',
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
@@ -771,23 +775,81 @@ class _CalenderItem extends StatelessWidget {
                     ? Container()
                     : Column(
                         children: scheduleList!
-                            .map((e) => Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  width: double.infinity,
-                                  height: 20,
-                                  alignment: Alignment.centerLeft,
-                                  margin: EdgeInsets.only(
-                                      top: 2, left: 2, right: 2),
-                                  child: Text(
-                                    e.title,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                    overflow: TextOverflow.ellipsis,
+                            .map((e) => GestureDetector(
+                                  onTap: () {
+                                    print('タップ');
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              backgroundColor:
+                                                  Colors.greenAccent,
+                                              title: Text(e.title),
+                                              content: SingleChildScrollView(
+                                                child: ListBody(
+                                                  children: [
+                                                    Text('${e.title}をどうしますか？'),
+                                                  ],
+                                                ),
+                                              ),
+                                              actions: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    TextButton(
+                                                      child: Text(
+                                                        '編集',
+                                                        style: TextStyle(
+                                                            fontSize: 20),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    TextButton(
+                                                      child: Text(
+                                                        '削除',
+                                                        style: TextStyle(
+                                                            fontSize: 20),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    TextButton(
+                                                      child: Text(
+                                                        '閉じる',
+                                                        style: TextStyle(
+                                                            fontSize: 20),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ));
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    width: double.infinity,
+                                    height: 20,
+                                    alignment: Alignment.centerLeft,
+                                    margin: EdgeInsets.only(
+                                        top: 2, left: 2, right: 2),
+                                    child: Text(
+                                      e.title,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ))
                             .toList(),
