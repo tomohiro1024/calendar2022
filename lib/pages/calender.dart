@@ -12,22 +12,20 @@ class CalenderView extends StatefulWidget {
 
 class _CalenderViewState extends State<CalenderView> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController titleController = TextEditingController();
-  // 現在時刻の取得
   DateTime now = DateTime.now();
-  //　曜日
-  List<String> weekName = ['月', '火', '水', '木', '金', '土', '日'];
-  List<String> holiday = ['土', '日'];
-  late PageController controller;
   DateTime firstDay = DateTime(2023, 1, 1);
-  late DateTime selectedDate;
-  // firstDayから何ヶ月経っているかという状態を管理
-  late int initialIndex;
-  int monthDuration = 0;
-
   DateTime? selectedStartTime;
   DateTime? selectedEndTime;
+  late DateTime selectedDate;
+  List<String> weekName = ['月', '火', '水', '木', '金', '土', '日'];
+  List<String> holiday = ['土', '日'];
+  TextEditingController titleController = TextEditingController();
+  late PageController controller;
+  int monthDuration = 0;
+  // firstDayから何ヶ月経っているかという状態を管理
+  late int initialIndex;
 
+  // オプション
   late List<int> yearOption;
   List<int> monthOption = List.generate(12, (index) => index + 1);
   List<int>? dayOption;
@@ -181,6 +179,7 @@ class _CalenderViewState extends State<CalenderView> {
     );
   }
 
+  // スケジュール追加のシンプルダイアログ
   Widget buildAppScheduleDialog() {
     // final _editController = TextEditingController();
     return StatefulBuilder(builder: (context, setState) {
