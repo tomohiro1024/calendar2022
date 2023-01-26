@@ -11,7 +11,7 @@ class CalenderView extends StatefulWidget {
 }
 
 class _CalenderViewState extends State<CalenderView> {
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
   // 現在時刻の取得
   DateTime now = DateTime.now();
@@ -189,7 +189,7 @@ class _CalenderViewState extends State<CalenderView> {
         title: Column(
           children: [
             Form(
-              key: formKey,
+              key: _formKey,
               child: Row(
                 children: [
                   Expanded(
@@ -198,10 +198,10 @@ class _CalenderViewState extends State<CalenderView> {
                       child: TextFormField(
                         controller: titleController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             hintText: 'タイトルを追加', border: InputBorder.none),
-                        validator: (val) {
-                          if (val!.isEmpty) {
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
                             return '入力してください。';
                           }
                           return null;
@@ -225,10 +225,9 @@ class _CalenderViewState extends State<CalenderView> {
                   // 追加ボタン
                   IconButton(
                     onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   const SnackBar(content: Text('Processing Data')),
-                        // );
+                      final isFormValidate = !_formKey.currentState!.validate();
+                      if (isFormValidate) {
+                        return;
                       }
                       if (!validationIsOk()) {
                         showDialog(
@@ -277,6 +276,32 @@ class _CalenderViewState extends State<CalenderView> {
                       }
 
                       selectedEndTime = null;
+
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (context) => AlertDialog(
+                      //           // backgroundColor: Colors.redAccent.shade200,
+                      //           title: Text('追加'),
+                      //           content: SingleChildScrollView(
+                      //             child: ListBody(
+                      //               children: [
+                      //                 Text('スケジュールを追加しました。'),
+                      //               ],
+                      //             ),
+                      //           ),
+                      //           actions: [
+                      //             TextButton(
+                      //               child: Text(
+                      //                 '閉じる',
+                      //                 style: TextStyle(fontSize: 20),
+                      //               ),
+                      //               onPressed: () {
+                      //                 Navigator.of(context)
+                      //                     .popUntil((route) => route.isFirst);
+                      //               },
+                      //             ),
+                      //           ],
+                      //         ));
 
                       Navigator.pop(context);
                     },
@@ -811,7 +836,8 @@ class _CalenderItem extends StatelessWidget {
                                                       child: Text(
                                                         '削除',
                                                         style: TextStyle(
-                                                            fontSize: 20),
+                                                            fontSize: 20,
+                                                            color: Colors.red),
                                                       ),
                                                       onPressed: () {
                                                         Navigator.pop(context);
