@@ -307,7 +307,7 @@ class _CalenderViewState extends State<CalenderView> {
                     splashRadius: 15,
                     splashColor: Colors.green,
                     icon: Icon(
-                      Icons.done,
+                      Icons.send,
                       color: Colors.green,
                     ),
                   ),
@@ -692,6 +692,7 @@ class _CalenderViewState extends State<CalenderView> {
 
   Widget createCalenderItem() {
     return PageView.builder(
+        scrollDirection: Axis.vertical,
         controller: controller,
         itemBuilder: (context, index) {
           List<Widget> _list = [];
@@ -811,7 +812,7 @@ class _CalenderItem extends StatelessWidget {
                                               content: SingleChildScrollView(
                                                 child: ListBody(
                                                   children: [
-                                                    Text('${e.title}をどうしますか？'),
+                                                    Text('『${e.title}』をどうしますか？')
                                                   ],
                                                 ),
                                               ),
