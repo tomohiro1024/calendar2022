@@ -277,33 +277,33 @@ class _CalenderViewState extends State<CalenderView> {
 
                       selectedEndTime = null;
 
-                      // showDialog(
-                      //     context: context,
-                      //     builder: (context) => AlertDialog(
-                      //           // backgroundColor: Colors.redAccent.shade200,
-                      //           title: Text('追加'),
-                      //           content: SingleChildScrollView(
-                      //             child: ListBody(
-                      //               children: [
-                      //                 Text('スケジュールを追加しました。'),
-                      //               ],
-                      //             ),
-                      //           ),
-                      //           actions: [
-                      //             TextButton(
-                      //               child: Text(
-                      //                 '閉じる',
-                      //                 style: TextStyle(fontSize: 20),
-                      //               ),
-                      //               onPressed: () {
-                      //                 Navigator.of(context)
-                      //                     .popUntil((route) => route.isFirst);
-                      //               },
-                      //             ),
-                      //           ],
-                      //         ));
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                // backgroundColor: Colors.redAccent.shade200,
+                                title: Text('追加'),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: [
+                                      Text('スケジュールを追加しました。'),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                      '閉じる',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .popUntil((route) => route.isFirst);
+                                    },
+                                  ),
+                                ],
+                              ));
 
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                     },
                     splashRadius: 15,
                     splashColor: Colors.green,
