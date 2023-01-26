@@ -226,11 +226,31 @@ class _CalenderViewState extends State<CalenderView> {
                   IconButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   const SnackBar(content: Text('Processing Data')),
+                        // );
                       }
                       if (!validationIsOk()) {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: Text('エラー'),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: [
+                                        Text('終了時刻を確認してください。'),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      child: Text('閉じる'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                ));
                         return;
                       }
 
@@ -253,28 +273,6 @@ class _CalenderViewState extends State<CalenderView> {
                       }
 
                       selectedEndTime = null;
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) => AlertDialog(
-                      //     title: Text('スケジュールの追加'),
-                      //     content: SingleChildScrollView(
-                      //       child: ListBody(
-                      //         children: [
-                      //           Text('スケジュールの追加をしました。'),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     actions: [
-                      //       TextButton(
-                      //         child: Text('閉じる'),
-                      //         onPressed: () {
-                      //           Navigator.of(context)
-                      //               .popUntil((route) => route.isFirst);
-                      //         },
-                      //       ),
-                      //     ],
-                      //   ),
-                      // );
 
                       Navigator.pop(context);
                     },
