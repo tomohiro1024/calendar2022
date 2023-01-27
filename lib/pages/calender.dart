@@ -1003,7 +1003,7 @@ class _CalenderViewState extends State<CalenderView> {
               selectedDate: selectedDate,
               selectDate: selectDate,
               editSchedule: editSchedule,
-              doubleSchedule: addSchedule,
+              addSchedule: addSchedule,
             ));
             int repeatNumber = 7 - _listCache.length;
             if (date.add(Duration(days: i)).weekday == 7) {
@@ -1044,7 +1044,7 @@ class _CalenderItem extends StatelessWidget {
   final List<Schedule>? scheduleList;
   final Function selectDate;
   final Function editSchedule;
-  final Function doubleSchedule;
+  final Function addSchedule;
   const _CalenderItem(
       {required this.day,
       required this.now,
@@ -1053,7 +1053,7 @@ class _CalenderItem extends StatelessWidget {
       this.scheduleList,
       required this.selectDate,
       required this.editSchedule,
-      required this.doubleSchedule,
+      required this.addSchedule,
       Key? key})
       : super(key: key);
 
@@ -1070,10 +1070,10 @@ class _CalenderItem extends StatelessWidget {
           selectDate(casheDate);
         },
         onDoubleTap: () {
-          doubleSchedule();
+          addSchedule();
         },
         onLongPress: () {
-          doubleSchedule();
+          addSchedule();
         },
         child: Container(
           alignment: Alignment.topCenter,
