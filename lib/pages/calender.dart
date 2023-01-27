@@ -1008,6 +1008,9 @@ class _CalenderItem extends StatelessWidget {
         onDoubleTap: () {
           doubleSchedule();
         },
+        onLongPress: () {
+          doubleSchedule();
+        },
         child: Container(
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
@@ -1096,6 +1099,11 @@ class _CalenderItem extends StatelessWidget {
                                                 ),
                                               ],
                                             ));
+                                  },
+                                  onDoubleTap: () {
+                                    editSchedule(
+                                        index: e.key,
+                                        selectedSchedule: e.value);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
