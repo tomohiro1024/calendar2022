@@ -56,34 +56,6 @@ class _CalenderViewState extends State<CalenderView> {
         endAt: DateTime(2023, 1, 9, 11),
       ),
     ],
-    DateTime(2023, 1, 9): [
-      Schedule(
-        title: 'shop',
-        startAt: DateTime(2023, 1, 9, 10),
-        endAt: DateTime(2023, 1, 9, 11),
-      ),
-    ],
-    DateTime(2023, 1, 9): [
-      Schedule(
-        title: 'shop',
-        startAt: DateTime(2023, 1, 9, 10),
-        endAt: DateTime(2023, 1, 9, 11),
-      ),
-    ],
-    DateTime(2023, 1, 9): [
-      Schedule(
-        title: 'shop',
-        startAt: DateTime(2023, 1, 9, 10),
-        endAt: DateTime(2023, 1, 9, 11),
-      ),
-    ],
-    DateTime(2023, 1, 9): [
-      Schedule(
-        title: 'shop',
-        startAt: DateTime(2023, 1, 9, 10),
-        endAt: DateTime(2023, 1, 9, 11),
-      ),
-    ],
     DateTime(2023, 1, 10): [
       Schedule(
         title: 'shop',
