@@ -87,8 +87,8 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 1, 10): [
       Schedule(
         title: 'shop',
-        startAt: DateTime(2023, 1, 9, 10),
-        endAt: DateTime(2023, 1, 9, 11),
+        startAt: DateTime(2023, 1, 10, 10),
+        endAt: DateTime(2023, 1, 10, 11),
       ),
     ]
   };
@@ -181,7 +181,6 @@ class _CalenderViewState extends State<CalenderView> {
 
   // スケジュール追加のシンプルダイアログ
   Widget buildAppScheduleDialog() {
-    // final _editController = TextEditingController();
     return StatefulBuilder(builder: (context, setState) {
       return SimpleDialog(
         titlePadding: EdgeInsets.zero,
@@ -212,7 +211,6 @@ class _CalenderViewState extends State<CalenderView> {
                   IconButton(
                     onPressed: () {
                       titleController.clear();
-                      // Navigator.pop(context);
                     },
                     splashRadius: 15,
                     splashColor: Colors.red,
@@ -276,6 +274,8 @@ class _CalenderViewState extends State<CalenderView> {
 
                       selectedEndTime = null;
 
+                      Navigator.pop(context, true);
+
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
@@ -301,13 +301,236 @@ class _CalenderViewState extends State<CalenderView> {
                                   ),
                                 ],
                               ));
-
-                      // Navigator.pop(context);
                     },
                     splashRadius: 15,
                     splashColor: Colors.green,
                     icon: Icon(
                       Icons.send,
+                      color: Colors.green,
+                    ),
+                  ),
+                  //閉じるボタン
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    splashRadius: 15,
+                    splashColor: Colors.red,
+                    icon: Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              children: [
+                // 開始時刻
+                GestureDetector(
+                  onTap: () async {
+                    buildDayOption(selectedDate);
+                    isSettingStartTime = true;
+                    await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return buildSelectedTimeDialog();
+                        });
+                    setState(() {});
+                  },
+                  child: Container(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '開始',
+                          style: TextStyle(color: Colors.pink),
+                        ),
+                        SizedBox(width: 10),
+                        Text(DateFormat('yyyy').format(selectedStartTime!)),
+                        SizedBox(width: 5),
+                        Text(DateFormat('MM/dd').format(selectedStartTime!)),
+                        SizedBox(width: 5),
+                        Text(DateFormat('HH:mm').format(selectedStartTime!)),
+                      ],
+                    ),
+                  ),
+                ),
+                // 終了時刻
+                GestureDetector(
+                  onTap: () async {
+                    buildDayOption(selectedDate);
+                    isSettingStartTime = false;
+                    selectedEndTime ??= selectedStartTime;
+                    await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return buildSelectedTimeDialog();
+                        });
+                    setState(() {});
+                  },
+                  child: Container(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '終了',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                        SizedBox(width: 10),
+                        Text(selectedEndTime == null
+                            ? '-----'
+                            : DateFormat('yyyy').format(selectedEndTime!)),
+                        SizedBox(width: 5),
+                        Text(selectedEndTime == null
+                            ? '--/--'
+                            : DateFormat('MM/dd').format(selectedEndTime!)),
+                        SizedBox(width: 5),
+                        Text(selectedEndTime == null
+                            ? '--:--'
+                            : DateFormat('HH:mm').format(selectedEndTime!)),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+  // スケジュール編集のシンプルダイアログ
+  Widget buildEditAppScheduleDialog() {
+    return StatefulBuilder(builder: (context, setState) {
+      return SimpleDialog(
+        titlePadding: EdgeInsets.zero,
+        title: Column(
+          children: [
+            Form(
+              key: _formKey,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: titleController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        decoration: const InputDecoration(
+                            hintText: 'タイトルを編集', border: InputBorder.none),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return '入力してください。';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  // 削除ボタン
+                  IconButton(
+                    onPressed: () {
+                      titleController.clear();
+                    },
+                    splashRadius: 15,
+                    splashColor: Colors.red,
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                  ),
+                  // 追加ボタン
+                  IconButton(
+                    onPressed: () {
+                      final isFormValidate = !_formKey.currentState!.validate();
+                      if (isFormValidate) {
+                        return;
+                      }
+                      if (!validationIsOk()) {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  backgroundColor: Colors.redAccent.shade200,
+                                  title: Text('エラー'),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: [
+                                        Text('終了時刻を確認してください。'),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      child: Text(
+                                        '閉じる',
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                ));
+                        return;
+                      }
+
+                      DateTime checkScheduleTime = DateTime(
+                          selectedStartTime!.year,
+                          selectedStartTime!.month,
+                          selectedStartTime!.day);
+
+                      Schedule newSchedule = Schedule(
+                          title: titleController.text,
+                          startAt: selectedStartTime!,
+                          endAt: selectedEndTime!);
+
+                      // scheduleMapに選択している日付のキーが含まれている場合
+                      if (scheduleMap.containsKey(checkScheduleTime)) {
+                        scheduleMap[checkScheduleTime]!.add(newSchedule);
+                      } else {
+                        // キーが存在していない場合、キーに新しいスケジュールの情報を入れる
+                        scheduleMap[checkScheduleTime] = [newSchedule];
+                      }
+
+                      selectedEndTime = null;
+
+                      Navigator.pop(context, true);
+
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                // backgroundColor: Colors.redAccent.shade200,
+                                title: Text('編集'),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: [
+                                      Text('スケジュールを編集しました。'),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                      '閉じる',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .popUntil((route) => route.isFirst);
+                                    },
+                                  ),
+                                ],
+                              ));
+                    },
+                    splashRadius: 15,
+                    splashColor: Colors.green,
+                    icon: Icon(
+                      Icons.edit,
                       color: Colors.green,
                     ),
                   ),
@@ -690,9 +913,28 @@ class _CalenderViewState extends State<CalenderView> {
     }
   }
 
+  Future<void> editSchedule(
+      {required int index, required Schedule selectedSchedule}) async {
+    selectedStartTime = selectedSchedule.startAt;
+    selectedEndTime = selectedSchedule.endAt;
+    titleController.text = selectedSchedule.title;
+    final result = await showDialog(
+        context: context,
+        builder: (context) {
+          return buildEditAppScheduleDialog();
+        });
+    // 元々登録されているデータを削除
+    if (result) {
+      scheduleMap[DateTime(selectedSchedule.startAt.year,
+              selectedSchedule.startAt.month, selectedSchedule.startAt.day)]!
+          .removeAt(index);
+    }
+
+    setState(() {});
+  }
+
   Widget createCalenderItem() {
     return PageView.builder(
-        scrollDirection: Axis.vertical,
         controller: controller,
         itemBuilder: (context, index) {
           List<Widget> _list = [];
@@ -713,6 +955,7 @@ class _CalenderViewState extends State<CalenderView> {
               scheduleList: scheduleMap[DateTime(date.year, date.month, i + 1)],
               selectedDate: selectedDate,
               selectDate: selectDate,
+              editSchedule: editSchedule,
             ));
             int repeatNumber = 7 - _listCache.length;
             if (date.add(Duration(days: i)).weekday == 7) {
@@ -752,6 +995,7 @@ class _CalenderItem extends StatelessWidget {
   final DateTime selectedDate;
   final List<Schedule>? scheduleList;
   final Function selectDate;
+  final Function editSchedule;
   const _CalenderItem(
       {required this.day,
       required this.now,
@@ -759,6 +1003,7 @@ class _CalenderItem extends StatelessWidget {
       required this.selectedDate,
       this.scheduleList,
       required this.selectDate,
+      required this.editSchedule,
       Key? key})
       : super(key: key);
 
@@ -800,19 +1045,20 @@ class _CalenderItem extends StatelessWidget {
                     ? Container()
                     : Column(
                         children: scheduleList!
+                            .asMap()
+                            .entries
                             .map((e) => GestureDetector(
                                   onTap: () {
                                     print('タップ');
                                     showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                              backgroundColor:
-                                                  Colors.greenAccent,
-                                              title: Text(e.title),
+                                              title: Text(e.value.title),
                                               content: SingleChildScrollView(
                                                 child: ListBody(
                                                   children: [
-                                                    Text('『${e.title}』をどうしますか？')
+                                                    Text(
+                                                        '『${e.value.title}』をどうしますか？')
                                                   ],
                                                 ),
                                               ),
@@ -830,6 +1076,10 @@ class _CalenderItem extends StatelessWidget {
                                                       ),
                                                       onPressed: () {
                                                         Navigator.pop(context);
+                                                        editSchedule(
+                                                            index: e.key,
+                                                            selectedSchedule:
+                                                                e.value);
                                                       },
                                                     ),
                                                     TextButton(
@@ -869,7 +1119,7 @@ class _CalenderItem extends StatelessWidget {
                                     margin: EdgeInsets.only(
                                         top: 2, left: 2, right: 2),
                                     child: Text(
-                                      e.title,
+                                      e.value.title,
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 10,
