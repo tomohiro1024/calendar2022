@@ -113,7 +113,7 @@ class _CalenderViewState extends State<CalenderView> {
                       ),
                       onPressed: () async {
                         Navigator.pop(context);
-                        doubleSchedule();
+                        addSchedule();
                       },
                     ),
                   ],
@@ -969,7 +969,7 @@ class _CalenderViewState extends State<CalenderView> {
     setState(() {});
   }
 
-  Future<void> doubleSchedule() async {
+  Future<void> addSchedule() async {
     selectedStartTime = selectedDate;
     await showDialog(
         context: context,
@@ -1003,7 +1003,7 @@ class _CalenderViewState extends State<CalenderView> {
               selectedDate: selectedDate,
               selectDate: selectDate,
               editSchedule: editSchedule,
-              doubleSchedule: doubleSchedule,
+              doubleSchedule: addSchedule,
             ));
             int repeatNumber = 7 - _listCache.length;
             if (date.add(Duration(days: i)).weekday == 7) {

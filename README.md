@@ -1,5 +1,21 @@
 # calendar202211
 
+# メモ
+# ユーザーがAppbarの色を変更できる。
+# ユーザーがアイコンを変更できる。
+# ドロワーのアイコンを押下できる。
+# 誕生日機能
+# vageviewアイコンタップで次ページへ
+#
+#
+#
+#
+#
+#
+
+
+
+
 A new Flutter project.
 
 ## Getting Started
