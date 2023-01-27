@@ -905,6 +905,17 @@ class _CalenderViewState extends State<CalenderView> {
     setState(() {});
   }
 
+  void doubleSchedule() async {
+    selectedStartTime = selectedDate;
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return buildAppScheduleDialog();
+        });
+    titleController.clear();
+    setState(() {});
+  }
+
   Widget createCalenderItem() {
     return PageView.builder(
         controller: controller,
@@ -928,6 +939,7 @@ class _CalenderViewState extends State<CalenderView> {
               selectedDate: selectedDate,
               selectDate: selectDate,
               editSchedule: editSchedule,
+              doubleSchedule: doubleSchedule,
             ));
             int repeatNumber = 7 - _listCache.length;
             if (date.add(Duration(days: i)).weekday == 7) {
@@ -968,6 +980,7 @@ class _CalenderItem extends StatelessWidget {
   final List<Schedule>? scheduleList;
   final Function selectDate;
   final Function editSchedule;
+  final Function doubleSchedule;
   const _CalenderItem(
       {required this.day,
       required this.now,
@@ -976,6 +989,7 @@ class _CalenderItem extends StatelessWidget {
       this.scheduleList,
       required this.selectDate,
       required this.editSchedule,
+      required this.doubleSchedule,
       Key? key})
       : super(key: key);
 
@@ -990,6 +1004,9 @@ class _CalenderItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           selectDate(casheDate);
+        },
+        onDoubleTap: () {
+          doubleSchedule();
         },
         child: Container(
           alignment: Alignment.topCenter,
