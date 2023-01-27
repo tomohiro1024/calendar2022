@@ -924,7 +924,7 @@ class _CalenderViewState extends State<CalenderView> {
           return buildEditAppScheduleDialog();
         });
     // 元々登録されているデータを削除
-    if (result) {
+    if (result == true) {
       scheduleMap[DateTime(selectedSchedule.startAt.year,
               selectedSchedule.startAt.month, selectedSchedule.startAt.day)]!
           .removeAt(index);
