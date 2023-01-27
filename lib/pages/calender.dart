@@ -49,18 +49,18 @@ class _CalenderViewState extends State<CalenderView> {
   bool isSettingStartTime = true;
 
   Map<DateTime, List<Schedule>> scheduleMap = {
-    DateTime(2023, 1, 9): [
+    DateTime(2023, 1, 1): [
       Schedule(
-        title: 'shop',
-        startAt: DateTime(2023, 1, 9, 10),
-        endAt: DateTime(2023, 1, 9, 11),
+        title: '元旦',
+        startAt: DateTime(2023, 1, 1, 1),
+        endAt: DateTime(2023, 1, 1, 2),
       ),
     ],
-    DateTime(2023, 1, 10): [
+    DateTime(2023, 1, 9): [
       Schedule(
-        title: 'shop',
-        startAt: DateTime(2023, 1, 10, 10),
-        endAt: DateTime(2023, 1, 10, 11),
+        title: '成人の日',
+        startAt: DateTime(2023, 1, 9, 10),
+        endAt: DateTime(2023, 1, 9, 11),
       ),
     ]
   };
@@ -1190,7 +1190,7 @@ class _CalenderItem extends StatelessWidget {
                                   ),
                                 ))
                             .toList(),
-                      )
+                      ),
               ],
             ),
           ),
