@@ -87,7 +87,71 @@ class _CalenderViewState extends State<CalenderView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        backgroundColor: Colors.orangeAccent.shade100,
+        child: ListView(
+          children: [
+            SizedBox(height: 30),
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: Colors.orange),
+                  bottom: BorderSide(color: Colors.orange),
+                ),
+              ),
+              child: ListTile(
+                title: Row(
+                  children: [
+                    Icon(
+                      Icons.add,
+                      color: Colors.green,
+                    ),
+                    TextButton(
+                      child: Text(
+                        'スケジュールの追加',
+                        style: TextStyle(fontSize: 20, color: Colors.green),
+                      ),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        doubleSchedule();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.orange),
+                ),
+              ),
+              child: ListTile(
+                title: Row(
+                  children: [
+                    Icon(
+                      Icons.close,
+                      color: Colors.pinkAccent,
+                    ),
+                    TextButton(
+                      child: Text(
+                        '閉じる',
+                        style:
+                            TextStyle(fontSize: 20, color: Colors.pinkAccent),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.orangeAccent,
         title: Text(
           DateFormat('yyyy年 M月')
@@ -905,7 +969,7 @@ class _CalenderViewState extends State<CalenderView> {
     setState(() {});
   }
 
-  void doubleSchedule() async {
+  Future<void> doubleSchedule() async {
     selectedStartTime = selectedDate;
     await showDialog(
         context: context,
