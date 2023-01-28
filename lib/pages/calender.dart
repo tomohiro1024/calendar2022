@@ -213,14 +213,7 @@ class _CalenderViewState extends State<CalenderView> {
         ),
         backgroundColor: Colors.orangeAccent,
         onPressed: () async {
-          selectedStartTime = selectedDate;
-          await showDialog(
-              context: context,
-              builder: (context) {
-                return buildAppScheduleDialog();
-              });
-          titleController.clear();
-          setState(() {});
+          addSchedule();
         },
         child: Icon(
           Icons.create,
