@@ -102,9 +102,17 @@ class _CalenderViewState extends State<CalenderView> {
               child: ListTile(
                 title: Row(
                   children: [
-                    Icon(
-                      Icons.add,
-                      color: Colors.green,
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        addSchedule();
+                      },
+                      splashRadius: 15,
+                      splashColor: Colors.green,
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.green,
+                      ),
                     ),
                     TextButton(
                       child: Text(
@@ -129,9 +137,16 @@ class _CalenderViewState extends State<CalenderView> {
               child: ListTile(
                 title: Row(
                   children: [
-                    Icon(
-                      Icons.close,
-                      color: Colors.pinkAccent,
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      splashRadius: 15,
+                      splashColor: Colors.pinkAccent,
+                      icon: Icon(
+                        Icons.close,
+                        color: Colors.pinkAccent,
+                      ),
                     ),
                     TextButton(
                       child: Text(
