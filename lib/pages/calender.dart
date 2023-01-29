@@ -144,7 +144,7 @@ class _CalenderViewState extends State<CalenderView> {
                       splashRadius: 15,
                       splashColor: Colors.pinkAccent,
                       icon: Icon(
-                        Icons.close,
+                        Icons.exit_to_app,
                         color: Colors.pinkAccent,
                       ),
                     ),
