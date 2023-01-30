@@ -983,6 +983,7 @@ class _CalenderViewState extends State<CalenderView> {
               selectedSchedule.startAt.month, selectedSchedule.startAt.day)]!
           .removeAt(index);
     }
+    titleController.clear();
 
     setState(() {});
   }
