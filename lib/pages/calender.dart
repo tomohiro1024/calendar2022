@@ -987,6 +987,14 @@ class _CalenderViewState extends State<CalenderView> {
     setState(() {});
   }
 
+  Future<void> deleteSchedule(
+      {required int index, required Schedule selectedSchedule}) async {
+    scheduleMap[DateTime(selectedSchedule.startAt.year,
+            selectedSchedule.startAt.month, selectedSchedule.startAt.day)]!
+        .removeAt(index);
+    setState(() {});
+  }
+
   Future<void> addSchedule() async {
     selectedStartTime = selectedDate;
     await showDialog(
@@ -1022,6 +1030,7 @@ class _CalenderViewState extends State<CalenderView> {
               selectDate: selectDate,
               editSchedule: editSchedule,
               addSchedule: addSchedule,
+              deleteSchedule: deleteSchedule,
             ));
             int repeatNumber = 7 - _listCache.length;
             if (date.add(Duration(days: i)).weekday == 7) {
@@ -1063,6 +1072,7 @@ class _CalenderItem extends StatelessWidget {
   final Function selectDate;
   final Function editSchedule;
   final Function addSchedule;
+  final Function deleteSchedule;
   const _CalenderItem(
       {required this.day,
       required this.now,
@@ -1072,6 +1082,7 @@ class _CalenderItem extends StatelessWidget {
       required this.selectDate,
       required this.editSchedule,
       required this.addSchedule,
+      required this.deleteSchedule,
       Key? key})
       : super(key: key);
 
@@ -1165,6 +1176,43 @@ class _CalenderItem extends StatelessWidget {
                                                       ),
                                                       onPressed: () {
                                                         Navigator.pop(context);
+                                                        deleteSchedule(
+                                                            index: e.key,
+                                                            selectedSchedule:
+                                                                e.value);
+                                                        showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (context) =>
+                                                                    AlertDialog(
+                                                                      // backgroundColor: Colors.redAccent.shade200,
+                                                                      title: Text(
+                                                                          '削除'),
+                                                                      content:
+                                                                          SingleChildScrollView(
+                                                                        child:
+                                                                            ListBody(
+                                                                          children: [
+                                                                            Text('スケジュールを削除しました。'),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      actions: [
+                                                                        TextButton(
+                                                                          child:
+                                                                              Text(
+                                                                            '閉じる',
+                                                                            style:
+                                                                                TextStyle(fontSize: 20),
+                                                                          ),
+                                                                          onPressed:
+                                                                              () {
+                                                                            Navigator.of(context).popUntil((route) =>
+                                                                                route.isFirst);
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    ));
                                                       },
                                                     ),
                                                     TextButton(
