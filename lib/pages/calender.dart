@@ -223,6 +223,40 @@ class _CalenderViewState extends State<CalenderView> {
     );
   }
 
+  // エラーダイアログ
+  Future<void> errorDialog() {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              backgroundColor: Colors.redAccent.shade200,
+              title: Text(
+                'エラー',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: [
+                    Text(
+                      '終了時刻を確認してください。',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  child: Text(
+                    '閉じる',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ));
+  }
+
   // スケジュール追加のシンプルダイアログ
   Widget buildAppScheduleDialog() {
     return StatefulBuilder(builder: (context, setState) {
@@ -281,38 +315,7 @@ class _CalenderViewState extends State<CalenderView> {
                         return;
                       }
                       if (!validationIsOk()) {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  backgroundColor: Colors.redAccent.shade200,
-                                  title: Text(
-                                    'エラー',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  content: SingleChildScrollView(
-                                    child: ListBody(
-                                      children: [
-                                        Text(
-                                          '終了時刻を確認してください。',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      child: Text(
-                                        '閉じる',
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  ],
-                                ));
+                        errorDialog();
                         return;
                       }
 
@@ -526,38 +529,7 @@ class _CalenderViewState extends State<CalenderView> {
                         return;
                       }
                       if (!validationIsOk()) {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  backgroundColor: Colors.redAccent.shade200,
-                                  title: Text(
-                                    'エラー',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  content: SingleChildScrollView(
-                                    child: ListBody(
-                                      children: [
-                                        Text(
-                                          '終了時刻を確認してください。',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      child: Text(
-                                        '閉じる',
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  ],
-                                ));
+                        errorDialog();
                         return;
                       }
 
@@ -1166,183 +1138,188 @@ class _CalenderItem extends StatelessWidget {
                         children: scheduleList!
                             .asMap()
                             .entries
-                            .map((e) => GestureDetector(
-                                  onTap: () {
-                                    print('タップ');
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                              title: Text(e.value.title),
-                                              content: SingleChildScrollView(
-                                                child: ListBody(
-                                                  children: [
-                                                    Text(
-                                                        '『${e.value.title}』をどうしますか？')
-                                                  ],
-                                                ),
+                            .map(
+                              (e) => GestureDetector(
+                                onTap: () {
+                                  print('タップ');
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                            title: Text(e.value.title),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: [
+                                                  Text(
+                                                      '『${e.value.title}』をどうしますか？')
+                                                ],
                                               ),
-                                              actions: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    TextButton(
-                                                      child: Text(
-                                                        '編集',
-                                                        style: TextStyle(
-                                                            fontSize: 20),
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                        editSchedule(
-                                                            index: e.key,
-                                                            selectedSchedule:
-                                                                e.value);
-                                                      },
+                                            ),
+                                            actions: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  TextButton(
+                                                    child: Text(
+                                                      '編集',
+                                                      style: TextStyle(
+                                                          fontSize: 20),
                                                     ),
-                                                    TextButton(
-                                                      child: Text(
-                                                        '削除',
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.red),
-                                                      ),
-                                                      onPressed: () {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (context) =>
-                                                                    AlertDialog(
-                                                                      // backgroundColor: Colors.redAccent.shade200,
-                                                                      title:
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      editSchedule(
+                                                          index: e.key,
+                                                          selectedSchedule:
+                                                              e.value);
+                                                    },
+                                                  ),
+                                                  TextButton(
+                                                    child: Text(
+                                                      '削除',
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.red),
+                                                    ),
+                                                    onPressed: () {
+                                                      showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (context) =>
+                                                                  AlertDialog(
+                                                                    // backgroundColor: Colors.redAccent.shade200,
+                                                                    title: Text(
+                                                                      '確認',
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: TextStyle(
+                                                                          fontWeight:
+                                                                              FontWeight.bold),
+                                                                    ),
+                                                                    content:
+                                                                        SingleChildScrollView(
+                                                                      child:
+                                                                          ListBody(
+                                                                        children: [
                                                                           Text(
-                                                                        '確認',
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
+                                                                            '『${e.value.title}』を本当に削除しますか？',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold),
+                                                                          ),
+                                                                        ],
                                                                       ),
-                                                                      content:
-                                                                          SingleChildScrollView(
+                                                                    ),
+                                                                    actions: [
+                                                                      TextButton(
                                                                         child:
-                                                                            ListBody(
-                                                                          children: [
                                                                             Text(
-                                                                              '『${e.value.title}』を本当に削除しますか？',
-                                                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                                                            ),
-                                                                          ],
+                                                                          '削除',
+                                                                          style: TextStyle(
+                                                                              fontSize: 20,
+                                                                              color: Colors.red),
                                                                         ),
-                                                                      ),
-                                                                      actions: [
-                                                                        TextButton(
-                                                                          child:
-                                                                              Text(
-                                                                            '削除',
-                                                                            style:
-                                                                                TextStyle(fontSize: 20, color: Colors.red),
-                                                                          ),
-                                                                          onPressed:
-                                                                              () {
-                                                                            Navigator.of(context);
-                                                                            deleteSchedule(
-                                                                                index: e.key,
-                                                                                selectedSchedule: e.value);
-                                                                            showDialog(
-                                                                                context: context,
-                                                                                builder: (context) => AlertDialog(
-                                                                                      // backgroundColor: Colors.redAccent.shade200,
-                                                                                      title: Text(
-                                                                                        '削除',
-                                                                                        textAlign: TextAlign.center,
-                                                                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                                                                      ),
-                                                                                      content: SingleChildScrollView(
-                                                                                        child: ListBody(
-                                                                                          children: [
-                                                                                            Text(
-                                                                                              '『${e.value.title}』を削除しました。',
-                                                                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                      actions: [
-                                                                                        TextButton(
-                                                                                          child: Text(
-                                                                                            '閉じる',
-                                                                                            style: TextStyle(fontSize: 20),
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(
+                                                                              context);
+                                                                          deleteSchedule(
+                                                                              index: e.key,
+                                                                              selectedSchedule: e.value);
+                                                                          showDialog(
+                                                                              context: context,
+                                                                              builder: (context) => AlertDialog(
+                                                                                    // backgroundColor: Colors.redAccent.shade200,
+                                                                                    title: Text(
+                                                                                      '削除',
+                                                                                      textAlign: TextAlign.center,
+                                                                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                                                                    ),
+                                                                                    content: SingleChildScrollView(
+                                                                                      child: ListBody(
+                                                                                        children: [
+                                                                                          Text(
+                                                                                            '『${e.value.title}』を削除しました。',
+                                                                                            style: TextStyle(fontWeight: FontWeight.bold),
                                                                                           ),
-                                                                                          onPressed: () {
-                                                                                            Navigator.of(context).popUntil((route) => route.isFirst);
-                                                                                          },
+                                                                                        ],
+                                                                                      ),
+                                                                                    ),
+                                                                                    actions: [
+                                                                                      TextButton(
+                                                                                        child: Text(
+                                                                                          '閉じる',
+                                                                                          style: TextStyle(fontSize: 20),
                                                                                         ),
-                                                                                      ],
-                                                                                    ));
-                                                                          },
+                                                                                        onPressed: () {
+                                                                                          Navigator.of(context).popUntil((route) => route.isFirst);
+                                                                                        },
+                                                                                      ),
+                                                                                    ],
+                                                                                  ));
+                                                                        },
+                                                                      ),
+                                                                      TextButton(
+                                                                        child:
+                                                                            Text(
+                                                                          'キャンセル',
+                                                                          style:
+                                                                              TextStyle(fontSize: 20),
                                                                         ),
-                                                                        TextButton(
-                                                                          child:
-                                                                              Text(
-                                                                            'キャンセル',
-                                                                            style:
-                                                                                TextStyle(fontSize: 20),
-                                                                          ),
-                                                                          onPressed:
-                                                                              () {
-                                                                            Navigator.of(context).popUntil((route) =>
-                                                                                route.isFirst);
-                                                                          },
-                                                                        ),
-                                                                      ],
-                                                                    ));
-                                                        // Navigator.pop(context);
-                                                      },
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context).popUntil((route) =>
+                                                                              route.isFirst);
+                                                                        },
+                                                                      ),
+                                                                    ],
+                                                                  ));
+                                                      // Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                  TextButton(
+                                                    child: Text(
+                                                      '閉じる',
+                                                      style: TextStyle(
+                                                          fontSize: 20),
                                                     ),
-                                                    TextButton(
-                                                      child: Text(
-                                                        '閉じる',
-                                                        style: TextStyle(
-                                                            fontSize: 20),
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ));
-                                  },
-                                  onDoubleTap: () {
-                                    editSchedule(
-                                        index: e.key,
-                                        selectedSchedule: e.value);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    width: double.infinity,
-                                    height: 20,
-                                    alignment: Alignment.centerLeft,
-                                    margin: EdgeInsets.only(
-                                        top: 2, left: 2, right: 2),
-                                    child: Text(
-                                      e.value.title,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ));
+                                },
+                                onDoubleTap: () {
+                                  editSchedule(
+                                      index: e.key, selectedSchedule: e.value);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                ))
+                                  width: double.infinity,
+                                  height: 20,
+                                  alignment: Alignment.centerLeft,
+                                  margin: EdgeInsets.only(
+                                      top: 2, left: 2, right: 2),
+                                  child: Text(
+                                    e.value.title,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                            )
                             .toList(),
                       ),
+                // 祝日機能
               ],
             ),
           ),
