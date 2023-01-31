@@ -351,8 +351,6 @@ class _CalenderViewState extends State<CalenderView> {
                                     children: [
                                       Text(
                                         'スケジュールを追加しました。',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
@@ -598,8 +596,6 @@ class _CalenderViewState extends State<CalenderView> {
                                     children: [
                                       Text(
                                         'スケジュールを編集しました。',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
