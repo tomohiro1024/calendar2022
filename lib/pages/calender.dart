@@ -1255,7 +1255,8 @@ class _CalenderItem extends StatelessWidget {
                                                                                 builder: (context) => AlertDialog(
                                                                                       // backgroundColor: Colors.redAccent.shade200,
                                                                                       title: Text(
-                                                                                        '${e.value.title}の削除',
+                                                                                        '削除',
+                                                                                        textAlign: TextAlign.center,
                                                                                         style: TextStyle(fontWeight: FontWeight.bold),
                                                                                       ),
                                                                                       content: SingleChildScrollView(
