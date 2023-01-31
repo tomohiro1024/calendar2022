@@ -476,7 +476,14 @@ class _CalenderViewState extends State<CalenderView> {
                         controller: titleController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: const InputDecoration(
-                            hintText: 'タイトルを編集', border: InputBorder.none),
+                          hintText: 'タイトルを編集',
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                        ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return '入力してください。';
@@ -1108,7 +1115,7 @@ class _CalenderItem extends StatelessWidget {
         child: Container(
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
-            color: isSelected ? Colors.redAccent.withOpacity(0.2) : null,
+            color: isSelected ? Colors.redAccent.withOpacity(0.3) : null,
             border: Border.all(color: Colors.orangeAccent),
           ),
           child: SingleChildScrollView(
