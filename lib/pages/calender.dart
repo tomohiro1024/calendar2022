@@ -285,11 +285,19 @@ class _CalenderViewState extends State<CalenderView> {
                             context: context,
                             builder: (context) => AlertDialog(
                                   backgroundColor: Colors.redAccent.shade200,
-                                  title: Text('エラー'),
+                                  title: Text(
+                                    'エラー',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   content: SingleChildScrollView(
                                     child: ListBody(
                                       children: [
-                                        Text('終了時刻を確認してください。'),
+                                        Text(
+                                          '終了時刻を確認してください。',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -334,11 +342,18 @@ class _CalenderViewState extends State<CalenderView> {
                           context: context,
                           builder: (context) => AlertDialog(
                                 // backgroundColor: Colors.redAccent.shade200,
-                                title: Text('追加'),
+                                title: Text(
+                                  '追加',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: [
-                                      Text('スケジュールを追加しました。'),
+                                      Text(
+                                        'スケジュールを追加しました。',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -517,11 +532,19 @@ class _CalenderViewState extends State<CalenderView> {
                             context: context,
                             builder: (context) => AlertDialog(
                                   backgroundColor: Colors.redAccent.shade200,
-                                  title: Text('エラー'),
+                                  title: Text(
+                                    'エラー',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   content: SingleChildScrollView(
                                     child: ListBody(
                                       children: [
-                                        Text('終了時刻を確認してください。'),
+                                        Text(
+                                          '終了時刻を確認してください。',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -566,11 +589,18 @@ class _CalenderViewState extends State<CalenderView> {
                           context: context,
                           builder: (context) => AlertDialog(
                                 // backgroundColor: Colors.redAccent.shade200,
-                                title: Text('編集'),
+                                title: Text(
+                                  '編集',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: [
-                                      Text('スケジュールを編集しました。'),
+                                      Text(
+                                        'スケジュールを編集しました。',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -1194,13 +1224,19 @@ class _CalenderItem extends StatelessWidget {
                                                                         '確認',
                                                                         textAlign:
                                                                             TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
                                                                       ),
                                                                       content:
                                                                           SingleChildScrollView(
                                                                         child:
                                                                             ListBody(
                                                                           children: [
-                                                                            Text('『${e.value.title}』を本当に削除しますか？'),
+                                                                            Text(
+                                                                              '『${e.value.title}』を本当に削除しますか？',
+                                                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                                                            ),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -1210,7 +1246,7 @@ class _CalenderItem extends StatelessWidget {
                                                                               Text(
                                                                             '削除',
                                                                             style:
-                                                                                TextStyle(fontSize: 20),
+                                                                                TextStyle(fontSize: 20, color: Colors.red),
                                                                           ),
                                                                           onPressed:
                                                                               () {
@@ -1222,11 +1258,17 @@ class _CalenderItem extends StatelessWidget {
                                                                                 context: context,
                                                                                 builder: (context) => AlertDialog(
                                                                                       // backgroundColor: Colors.redAccent.shade200,
-                                                                                      title: Text('${e.value.title}の削除'),
+                                                                                      title: Text(
+                                                                                        '${e.value.title}の削除',
+                                                                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                                                                      ),
                                                                                       content: SingleChildScrollView(
                                                                                         child: ListBody(
                                                                                           children: [
-                                                                                            Text('『${e.value.title}』を削除しました。'),
+                                                                                            Text(
+                                                                                              '『${e.value.title}』を削除しました。',
+                                                                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                                                                            ),
                                                                                           ],
                                                                                         ),
                                                                                       ),
