@@ -73,7 +73,7 @@ class _CalenderViewState extends State<CalenderView> {
   @override
   void initState() {
     super.initState();
-    yearOption = [now.year, now.year + 1];
+    yearOption = [for (int i = 0; i < 10; i++) now.year + i];
     selectedDate = now;
     initialIndex =
         (now.year - firstDay.year) * 12 + (now.month - firstDay.month);
