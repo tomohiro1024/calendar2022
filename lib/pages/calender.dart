@@ -347,6 +347,7 @@ class _CalenderViewState extends State<CalenderView> {
                                 // backgroundColor: Colors.redAccent.shade200,
                                 title: Text(
                                   '追加',
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 content: SingleChildScrollView(
@@ -561,6 +562,7 @@ class _CalenderViewState extends State<CalenderView> {
                                 // backgroundColor: Colors.redAccent.shade200,
                                 title: Text(
                                   '編集',
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 content: SingleChildScrollView(
