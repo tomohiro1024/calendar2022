@@ -1276,7 +1276,6 @@ class _CalenderItem extends StatelessWidget {
                                                                       ),
                                                                     ],
                                                                   ));
-                                                      // Navigator.pop(context);
                                                     },
                                                   ),
                                                   TextButton(
@@ -1297,6 +1296,106 @@ class _CalenderItem extends StatelessWidget {
                                 onDoubleTap: () {
                                   editSchedule(
                                       index: e.key, selectedSchedule: e.value);
+                                },
+                                onLongPress: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                            // backgroundColor: Colors.redAccent.shade200,
+                                            title: Text(
+                                              '確認',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: [
+                                                  Text(
+                                                    '『${e.value.title}』を本当に削除しますか？',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                child: Text(
+                                                  '削除',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.red),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context);
+                                                  deleteSchedule(
+                                                      index: e.key,
+                                                      selectedSchedule:
+                                                          e.value);
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          AlertDialog(
+                                                            // backgroundColor: Colors.redAccent.shade200,
+                                                            title: Text(
+                                                              '削除',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                            content:
+                                                                SingleChildScrollView(
+                                                              child: ListBody(
+                                                                children: [
+                                                                  Text(
+                                                                    '『${e.value.title}』を削除しました。',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            actions: [
+                                                              TextButton(
+                                                                child: Text(
+                                                                  '閉じる',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          20),
+                                                                ),
+                                                                onPressed: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .popUntil(
+                                                                          (route) =>
+                                                                              route.isFirst);
+                                                                },
+                                                              ),
+                                                            ],
+                                                          ));
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: Text(
+                                                  'キャンセル',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .popUntil((route) =>
+                                                          route.isFirst);
+                                                },
+                                              ),
+                                            ],
+                                          ));
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
