@@ -2,6 +2,7 @@ import 'package:calendar202211/model/schedule.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CalenderView extends StatefulWidget {
   const CalenderView({Key? key}) : super(key: key);
@@ -122,6 +123,45 @@ class _CalenderViewState extends State<CalenderView> {
                       onPressed: () async {
                         Navigator.pop(context);
                         addSchedule();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.orange),
+                ),
+              ),
+              child: ListTile(
+                title: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () async {
+                        var uri = Uri.parse(
+                            'https://apps.apple.com/jp/app/id1668973474');
+                        await launchUrl(uri);
+                        Navigator.pop(context);
+                      },
+                      splashRadius: 15,
+                      splashColor: Colors.pinkAccent,
+                      icon: Icon(
+                        Icons.edit,
+                        color: Colors.cyan,
+                      ),
+                    ),
+                    TextButton(
+                      child: Text(
+                        'レビューする',
+                        style: TextStyle(fontSize: 20, color: Colors.cyan),
+                      ),
+                      onPressed: () async {
+                        var uri = Uri.parse(
+                            'https://apps.apple.com/jp/app/id1668973474');
+                        await launchUrl(uri);
+                        Navigator.pop(context);
                       },
                     ),
                   ],
