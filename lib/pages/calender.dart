@@ -1240,19 +1240,35 @@ class _CalenderItem extends StatelessWidget {
                                                     MainAxisAlignment
                                                         .spaceEvenly,
                                                 children: [
-                                                  TextButton(
-                                                    child: Text(
-                                                      '編集',
-                                                      style: TextStyle(
-                                                          fontSize: 20),
+                                                  Container(
+                                                    width: 70,
+                                                    height: 40,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      gradient: LinearGradient(
+                                                        colors: [
+                                                          Colors.greenAccent,
+                                                          Colors.green
+                                                        ],
+                                                      ),
                                                     ),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                      editSchedule(
-                                                          index: e.key,
-                                                          selectedSchedule:
-                                                              e.value);
-                                                    },
+                                                    child: TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        editSchedule(
+                                                            index: e.key,
+                                                            selectedSchedule:
+                                                                e.value);
+                                                      },
+                                                      child: Text(
+                                                        '編集',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 15),
+                                                      ),
+                                                    ),
                                                   ),
                                                   TextButton(
                                                     child: Text(
