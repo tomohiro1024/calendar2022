@@ -91,7 +91,7 @@ class _CalenderViewState extends State<CalenderView> {
     return Scaffold(
       // ドロワーメニュー
       drawer: Drawer(
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.orangeAccent.shade100,
         child: ListView(
           children: [
             Container(
@@ -246,7 +246,7 @@ class _CalenderViewState extends State<CalenderView> {
       appBar: NewGradientAppBar(
         iconTheme: IconThemeData(color: Colors.black),
         gradient: LinearGradient(
-          colors: [Colors.yellow, Colors.deepOrange],
+          colors: [Colors.orangeAccent, Colors.deepOrange],
         ),
         title: Text(
           DateFormat('yyyy年 M月')
