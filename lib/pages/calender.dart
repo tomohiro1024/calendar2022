@@ -281,7 +281,7 @@ class _CalenderViewState extends State<CalenderView> {
           addSchedule();
         },
         child: Icon(
-          Icons.create,
+          Icons.add,
           color: Colors.black,
         ),
       ),
@@ -1288,6 +1288,8 @@ class _CalenderItem extends StatelessWidget {
                                                                         ),
                                                                         onPressed:
                                                                             () {
+                                                                          Navigator.pop(
+                                                                              context);
                                                                           Navigator.of(
                                                                               context);
                                                                           deleteSchedule(
