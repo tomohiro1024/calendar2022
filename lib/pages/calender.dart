@@ -285,6 +285,7 @@ class _CalenderViewState extends State<CalenderView> {
       ),
       // 画面右下のプラスボタン
       floatingActionButton: FloatingActionButton(
+        elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -292,9 +293,19 @@ class _CalenderViewState extends State<CalenderView> {
         onPressed: () async {
           addSchedule();
         },
-        child: Icon(
-          Icons.add,
-          color: Colors.black,
+        child: Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: LinearGradient(
+              colors: [Colors.yellow, Colors.deepOrangeAccent],
+            ),
+          ),
+          child: Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
         ),
       ),
     );
@@ -422,7 +433,6 @@ class _CalenderViewState extends State<CalenderView> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                // backgroundColor: Colors.redAccent.shade200,
                                 title: Text(
                                   '追加',
                                   textAlign: TextAlign.center,
@@ -637,7 +647,6 @@ class _CalenderViewState extends State<CalenderView> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                // backgroundColor: Colors.redAccent.shade200,
                                 title: Text(
                                   '編集',
                                   textAlign: TextAlign.center,
@@ -1127,7 +1136,7 @@ class _CalenderViewState extends State<CalenderView> {
                         repeatNumber,
                         (index) => Expanded(
                                 child: Container(
-                              color: Colors.orangeAccent.withOpacity(0.3),
+                              color: Colors.orangeAccent.withOpacity(0.2),
                             ))));
               }
               _list.add(Expanded(child: Row(children: _listCache)));
@@ -1137,7 +1146,7 @@ class _CalenderViewState extends State<CalenderView> {
                   repeatNumber,
                   (index) => Expanded(
                           child: Container(
-                        color: Colors.orangeAccent.withOpacity(0.3),
+                        color: Colors.orangeAccent.withOpacity(0.2),
                       ))));
               _list.add(Expanded(child: Row(children: _listCache)));
             }
