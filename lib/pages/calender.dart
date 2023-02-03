@@ -307,7 +307,8 @@ class _CalenderViewState extends State<CalenderView> {
         builder: (context) => AlertDialog(
               backgroundColor: Colors.redAccent.shade200,
               title: Text(
-                'エラー',
+                '警告',
+                textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               content: SingleChildScrollView(
