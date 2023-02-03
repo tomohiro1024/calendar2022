@@ -117,7 +117,7 @@ class _CalenderViewState extends State<CalenderView> {
                 ),
               ),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 7),
             Container(
               decoration: BoxDecoration(
                 border: Border(
@@ -224,6 +224,18 @@ class _CalenderViewState extends State<CalenderView> {
                       },
                     ),
                   ],
+                ),
+              ),
+            ),
+            Container(
+              child: ListTile(
+                title: Text(
+                  'バージョン: 1.1.0',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ),
