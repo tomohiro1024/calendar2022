@@ -48,6 +48,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_launcher_icons: ^0.11.0
   url_launcher: ^6.1.8
+  new_gradient_app_bar: ^0.2.0
 
 flutter_icons:
   android: true

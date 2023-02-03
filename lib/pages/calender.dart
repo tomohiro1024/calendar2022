@@ -2,6 +2,7 @@ import 'package:calendar202211/model/schedule.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CalenderView extends StatefulWidget {
@@ -242,14 +243,17 @@ class _CalenderViewState extends State<CalenderView> {
           ],
         ),
       ),
-      appBar: AppBar(
+      appBar: NewGradientAppBar(
         iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.orangeAccent,
+        gradient: LinearGradient(
+          colors: [Colors.yellow, Colors.deepOrangeAccent],
+        ),
         title: Text(
           DateFormat('yyyy年 M月')
               .format(DateTime(now.year, now.month + monthDuration)),
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
+
         // 影をなくす
         elevation: 0,
       ),
@@ -258,7 +262,7 @@ class _CalenderViewState extends State<CalenderView> {
           children: [
             Container(
               height: 30,
-              color: Colors.orangeAccent,
+              color: Colors.orangeAccent.withOpacity(0.3),
               child: Row(
                 children: weekName
                     .map((e) => Expanded(
