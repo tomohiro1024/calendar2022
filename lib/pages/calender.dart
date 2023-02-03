@@ -88,11 +88,36 @@ class _CalenderViewState extends State<CalenderView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ドロワーメニュー
       drawer: Drawer(
         backgroundColor: Colors.orangeAccent.shade100,
         child: ListView(
           children: [
-            SizedBox(height: 30),
+            Container(
+              child: ListTile(
+                title: Row(
+                  children: [
+                    Container(
+                      width: 45,
+                      height: 45,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset('images/icon.png'),
+                      ),
+                    ),
+                    SizedBox(width: 15),
+                    Text(
+                      'メニュー',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 5),
             Container(
               decoration: BoxDecoration(
                 border: Border(
