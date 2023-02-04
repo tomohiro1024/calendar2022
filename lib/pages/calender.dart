@@ -1336,6 +1336,36 @@ class _CalenderItem extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
+                // 祝日機能
+                holidayList == null
+                    ? Container()
+                    : Column(
+                        children: holidayList!
+                            .map(
+                              (e) => Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [Colors.pinkAccent, Colors.red],
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                width: double.infinity,
+                                height: 20,
+                                alignment: Alignment.centerLeft,
+                                margin:
+                                    EdgeInsets.only(top: 2, left: 2, right: 2),
+                                child: Text(
+                                  e.title,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
                 scheduleList == null
                     ? Container()
                     : Column(
@@ -1659,36 +1689,6 @@ class _CalenderItem extends StatelessWidget {
                             )
                             .toList(),
                       ),
-                // 祝日機能
-                holidayList == null
-                    ? Container()
-                    : Column(
-                        children: holidayList!
-                            .map(
-                              (e) => Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [Colors.pinkAccent, Colors.red],
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                width: double.infinity,
-                                height: 20,
-                                alignment: Alignment.centerLeft,
-                                margin:
-                                    EdgeInsets.only(top: 2, left: 2, right: 2),
-                                child: Text(
-                                  e.title,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      )
               ],
             ),
           ),
