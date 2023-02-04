@@ -51,6 +51,16 @@ class _CalenderViewState extends State<CalenderView> {
   bool isSettingStartTime = true;
 
   Map<DateTime, List<Schedule>> scheduleMap = {
+    DateTime(2023, 1, 2): [
+      Schedule(
+        title: '元旦',
+        startAt: DateTime(2023, 1, 1, 1),
+        endAt: DateTime(2023, 1, 1, 2),
+      ),
+    ],
+  };
+
+  Map<DateTime, List<Schedule>> holidayMap = {
     DateTime(2023, 1, 1): [
       Schedule(
         title: '元旦',
@@ -64,7 +74,56 @@ class _CalenderViewState extends State<CalenderView> {
         startAt: DateTime(2023, 1, 9, 10),
         endAt: DateTime(2023, 1, 9, 11),
       ),
-    ]
+    ],
+    DateTime(2023, 2, 11): [
+      Schedule(
+        title: '建国記念日',
+        startAt: DateTime(2023, 2, 11, 10),
+        endAt: DateTime(2023, 2, 11, 11),
+      ),
+    ],
+    DateTime(2023, 2, 23): [
+      Schedule(
+        title: '天皇誕生日',
+        startAt: DateTime(2023, 2, 23, 10),
+        endAt: DateTime(2023, 2, 23, 11),
+      ),
+    ],
+    DateTime(2023, 3, 21): [
+      Schedule(
+        title: '秋分の日',
+        startAt: DateTime(2023, 3, 21, 10),
+        endAt: DateTime(2023, 3, 21, 11),
+      ),
+    ],
+    DateTime(2023, 4, 29): [
+      Schedule(
+        title: '昭和の日',
+        startAt: DateTime(2023, 4, 29, 10),
+        endAt: DateTime(2023, 4, 29, 11),
+      ),
+    ],
+    DateTime(2023, 5, 3): [
+      Schedule(
+        title: '憲法記念日',
+        startAt: DateTime(2023, 5, 3, 10),
+        endAt: DateTime(2023, 5, 3, 11),
+      ),
+    ],
+    DateTime(2023, 5, 4): [
+      Schedule(
+        title: 'みどりの日',
+        startAt: DateTime(2023, 5, 4, 10),
+        endAt: DateTime(2023, 5, 4, 11),
+      ),
+    ],
+    DateTime(2023, 5, 5): [
+      Schedule(
+        title: 'こどもの日',
+        startAt: DateTime(2023, 5, 5, 10),
+        endAt: DateTime(2023, 5, 5, 11),
+      ),
+    ],
   };
 
   void selectDate(DateTime casheDate) {
@@ -1125,6 +1184,7 @@ class _CalenderViewState extends State<CalenderView> {
               now: now,
               casheDate: DateTime(date.year, date.month, i + 1),
               scheduleList: scheduleMap[DateTime(date.year, date.month, i + 1)],
+              holidayList: holidayMap[DateTime(date.year, date.month, i + 1)],
               selectedDate: selectedDate,
               selectDate: selectDate,
               editSchedule: editSchedule,
@@ -1168,6 +1228,7 @@ class _CalenderItem extends StatelessWidget {
   final DateTime casheDate;
   final DateTime selectedDate;
   final List<Schedule>? scheduleList;
+  final List<Schedule>? holidayList;
   final Function selectDate;
   final Function editSchedule;
   final Function addSchedule;
@@ -1178,6 +1239,7 @@ class _CalenderItem extends StatelessWidget {
       required this.casheDate,
       required this.selectedDate,
       this.scheduleList,
+      this.holidayList,
       required this.selectDate,
       required this.editSchedule,
       required this.addSchedule,
@@ -1535,6 +1597,35 @@ class _CalenderItem extends StatelessWidget {
                             .toList(),
                       ),
                 // 祝日機能
+                holidayList == null
+                    ? Container()
+                    : Column(
+                        children: holidayList!
+                            .map(
+                              (e) => Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [Colors.pinkAccent, Colors.red],
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                width: double.infinity,
+                                height: 20,
+                                alignment: Alignment.centerLeft,
+                                margin:
+                                    EdgeInsets.only(top: 2, left: 2, right: 2),
+                                child: Text(
+                                  e.title,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      )
               ],
             ),
           ),
