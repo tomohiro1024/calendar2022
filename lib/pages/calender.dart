@@ -51,11 +51,11 @@ class _CalenderViewState extends State<CalenderView> {
   bool isSettingStartTime = true;
 
   Map<DateTime, List<Schedule>> scheduleMap = {
-    DateTime(2023, 1, 2): [
+    DateTime(2023, 2, 1): [
       Schedule(
-        title: '元旦',
-        startAt: DateTime(2023, 1, 1, 1),
-        endAt: DateTime(2023, 1, 1, 2),
+        title: 'リリース',
+        startAt: DateTime(2023, 2, 1, 1),
+        endAt: DateTime(2023, 2, 1, 2),
       ),
     ],
   };
@@ -122,6 +122,55 @@ class _CalenderViewState extends State<CalenderView> {
         title: 'こどもの日',
         startAt: DateTime(2023, 5, 5, 10),
         endAt: DateTime(2023, 5, 5, 11),
+      ),
+    ],
+    DateTime(2023, 7, 17): [
+      Schedule(
+        title: '海の日',
+        startAt: DateTime(2023, 7, 17, 10),
+        endAt: DateTime(2023, 7, 17, 11),
+      ),
+    ],
+    DateTime(2023, 8, 11): [
+      Schedule(
+        title: '山の日',
+        startAt: DateTime(2023, 8, 11, 10),
+        endAt: DateTime(2023, 8, 11, 11),
+      ),
+    ],
+    DateTime(2023, 9, 18): [
+      Schedule(
+        title: '敬老の日',
+        startAt: DateTime(2023, 9, 18, 10),
+        endAt: DateTime(2023, 9, 18, 11),
+      ),
+    ],
+    DateTime(2023, 9, 23): [
+      Schedule(
+        title: '秋分の日',
+        startAt: DateTime(2023, 9, 23, 10),
+        endAt: DateTime(2023, 9, 23, 11),
+      ),
+    ],
+    DateTime(2023, 10, 9): [
+      Schedule(
+        title: 'スポーツの日',
+        startAt: DateTime(2023, 10, 9, 10),
+        endAt: DateTime(2023, 10, 9, 11),
+      ),
+    ],
+    DateTime(2023, 11, 3): [
+      Schedule(
+        title: '文化の日',
+        startAt: DateTime(2023, 11, 3, 10),
+        endAt: DateTime(2023, 11, 3, 11),
+      ),
+    ],
+    DateTime(2023, 11, 23): [
+      Schedule(
+        title: '勤労感謝の日',
+        startAt: DateTime(2023, 11, 23, 10),
+        endAt: DateTime(2023, 11, 23, 11),
       ),
     ],
   };
