@@ -1593,7 +1593,7 @@ class _CalenderItem extends StatelessWidget {
                                                       color: Colors.red),
                                                 ),
                                                 onPressed: () {
-                                                  Navigator.of(context);
+                                                  Navigator.pop(context);
                                                   deleteSchedule(
                                                       index: e.key,
                                                       selectedSchedule:
