@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:calendar202211/model/schedule.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -292,10 +294,45 @@ class _CalenderViewState extends State<CalenderView> {
                         style: TextStyle(fontSize: 20, color: Colors.cyan),
                       ),
                       onPressed: () async {
-                        var uri = Uri.parse(
-                            'https://apps.apple.com/jp/app/id1668973474');
-                        await launchUrl(uri);
-                        Navigator.pop(context);
+                        if (Platform.isAndroid) {
+                          Navigator.pop(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text(
+                                      '確認',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    content: SingleChildScrollView(
+                                      child: ListBody(
+                                        children: [
+                                          Text(
+                                            'Androidは少々お待ちください',
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        child: Text(
+                                          '閉じる',
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).popUntil(
+                                              (route) => route.isFirst);
+                                        },
+                                      ),
+                                    ],
+                                  ));
+                        } else {
+                          var uri = Uri.parse(
+                              'https://apps.apple.com/jp/app/id1668973474');
+                          await launchUrl(uri);
+                          Navigator.pop(context);
+                        }
                       },
                     ),
                   ],
