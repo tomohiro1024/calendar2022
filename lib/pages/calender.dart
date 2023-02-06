@@ -276,10 +276,45 @@ class _CalenderViewState extends State<CalenderView> {
                   children: [
                     IconButton(
                       onPressed: () async {
-                        var uri = Uri.parse(
-                            'https://apps.apple.com/jp/app/id1668973474');
-                        await launchUrl(uri);
-                        Navigator.pop(context);
+                        if (Platform.isAndroid) {
+                          Navigator.pop(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text(
+                                      '確認',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    content: SingleChildScrollView(
+                                      child: ListBody(
+                                        children: [
+                                          Text(
+                                            'Androidは少々お待ちください',
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        child: Text(
+                                          '閉じる',
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).popUntil(
+                                              (route) => route.isFirst);
+                                        },
+                                      ),
+                                    ],
+                                  ));
+                        } else {
+                          var uri = Uri.parse(
+                              'https://apps.apple.com/jp/app/id1668973474');
+                          await launchUrl(uri);
+                          Navigator.pop(context);
+                        }
                       },
                       splashRadius: 15,
                       splashColor: Colors.pinkAccent,
