@@ -442,7 +442,7 @@ class _CalenderViewState extends State<CalenderView> {
           children: [
             Container(
               height: 30,
-              color: Colors.orangeAccent.withOpacity(0.3),
+              color: Colors.black.withOpacity(0.9),
               child: Row(
                 children: weekName
                     .map((e) => Expanded(
@@ -455,7 +455,7 @@ class _CalenderViewState extends State<CalenderView> {
                                 fontWeight: FontWeight.bold,
                                 color: (holiday.any((name) => name == e))
                                     ? Colors.red
-                                    : null,
+                                    : Colors.blue,
                               ),
                             ),
                           ),
@@ -463,6 +463,7 @@ class _CalenderViewState extends State<CalenderView> {
                     .toList(),
               ),
             ),
+            SizedBox(height: 3),
             Expanded(child: createCalenderItem()),
           ],
         ),
