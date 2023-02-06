@@ -1342,25 +1342,62 @@ class _CalenderItem extends StatelessWidget {
                     : Column(
                         children: holidayList!
                             .map(
-                              (e) => Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [Colors.pinkAccent, Colors.red],
+                              (e) => GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                            title: Text(
+                                              e.title,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: [
+                                                  Text(
+                                                    'この日は『${e.title}』です。',
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                child: Text(
+                                                  '閉じる',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .popUntil((route) =>
+                                                          route.isFirst);
+                                                },
+                                              ),
+                                            ],
+                                          ));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [Colors.pinkAccent, Colors.red],
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                width: double.infinity,
-                                height: 20,
-                                alignment: Alignment.centerLeft,
-                                margin:
-                                    EdgeInsets.only(top: 2, left: 2, right: 2),
-                                child: Text(
-                                  e.title,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold),
-                                  overflow: TextOverflow.ellipsis,
+                                  width: double.infinity,
+                                  height: 20,
+                                  alignment: Alignment.centerLeft,
+                                  margin: EdgeInsets.only(
+                                      top: 2, left: 2, right: 2),
+                                  child: Text(
+                                    e.title,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ),
                             )
