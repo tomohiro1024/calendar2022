@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../model/holiday.dart';
+
 class CalenderView extends StatefulWidget {
   const CalenderView({Key? key}) : super(key: key);
 
@@ -62,115 +64,131 @@ class _CalenderViewState extends State<CalenderView> {
     ],
   };
 
-  Map<DateTime, List<Schedule>> holidayMap = {
+  Map<DateTime, List<Holiday>> holidayMap = {
     DateTime(2023, 1, 1): [
-      Schedule(
+      Holiday(
         title: '元旦',
+        explanation: '１年の始まりを祝う日です。',
         startAt: DateTime(2023, 1, 1, 1),
         endAt: DateTime(2023, 1, 1, 2),
       ),
     ],
     DateTime(2023, 1, 9): [
-      Schedule(
+      Holiday(
         title: '成人の日',
+        explanation: '',
         startAt: DateTime(2023, 1, 9, 10),
         endAt: DateTime(2023, 1, 9, 11),
       ),
     ],
     DateTime(2023, 2, 11): [
-      Schedule(
+      Holiday(
         title: '建国記念日',
+        explanation: '',
         startAt: DateTime(2023, 2, 11, 10),
         endAt: DateTime(2023, 2, 11, 11),
       ),
     ],
     DateTime(2023, 2, 23): [
-      Schedule(
+      Holiday(
         title: '天皇誕生日',
+        explanation: '',
         startAt: DateTime(2023, 2, 23, 10),
         endAt: DateTime(2023, 2, 23, 11),
       ),
     ],
     DateTime(2023, 3, 21): [
-      Schedule(
+      Holiday(
         title: '秋分の日',
+        explanation: '',
         startAt: DateTime(2023, 3, 21, 10),
         endAt: DateTime(2023, 3, 21, 11),
       ),
     ],
     DateTime(2023, 4, 29): [
-      Schedule(
+      Holiday(
         title: '昭和の日',
+        explanation: '',
         startAt: DateTime(2023, 4, 29, 10),
         endAt: DateTime(2023, 4, 29, 11),
       ),
     ],
     DateTime(2023, 5, 3): [
-      Schedule(
+      Holiday(
         title: '憲法記念日',
+        explanation: '',
         startAt: DateTime(2023, 5, 3, 10),
         endAt: DateTime(2023, 5, 3, 11),
       ),
     ],
     DateTime(2023, 5, 4): [
-      Schedule(
+      Holiday(
         title: 'みどりの日',
+        explanation: '',
         startAt: DateTime(2023, 5, 4, 10),
         endAt: DateTime(2023, 5, 4, 11),
       ),
     ],
     DateTime(2023, 5, 5): [
-      Schedule(
+      Holiday(
         title: 'こどもの日',
+        explanation: '',
         startAt: DateTime(2023, 5, 5, 10),
         endAt: DateTime(2023, 5, 5, 11),
       ),
     ],
     DateTime(2023, 7, 17): [
-      Schedule(
+      Holiday(
         title: '海の日',
+        explanation: '',
         startAt: DateTime(2023, 7, 17, 10),
         endAt: DateTime(2023, 7, 17, 11),
       ),
     ],
     DateTime(2023, 8, 11): [
-      Schedule(
+      Holiday(
         title: '山の日',
+        explanation: '',
         startAt: DateTime(2023, 8, 11, 10),
         endAt: DateTime(2023, 8, 11, 11),
       ),
     ],
     DateTime(2023, 9, 18): [
-      Schedule(
+      Holiday(
         title: '敬老の日',
+        explanation: '',
         startAt: DateTime(2023, 9, 18, 10),
         endAt: DateTime(2023, 9, 18, 11),
       ),
     ],
     DateTime(2023, 9, 23): [
-      Schedule(
+      Holiday(
         title: '秋分の日',
+        explanation: '',
         startAt: DateTime(2023, 9, 23, 10),
         endAt: DateTime(2023, 9, 23, 11),
       ),
     ],
     DateTime(2023, 10, 9): [
-      Schedule(
+      Holiday(
         title: 'スポーツの日',
+        explanation: '',
         startAt: DateTime(2023, 10, 9, 10),
         endAt: DateTime(2023, 10, 9, 11),
       ),
     ],
     DateTime(2023, 11, 3): [
-      Schedule(
+      Holiday(
         title: '文化の日',
+        explanation: '',
         startAt: DateTime(2023, 11, 3, 10),
         endAt: DateTime(2023, 11, 3, 11),
       ),
     ],
     DateTime(2023, 11, 23): [
-      Schedule(
+      Holiday(
         title: '勤労感謝の日',
+        explanation: '',
         startAt: DateTime(2023, 11, 23, 10),
         endAt: DateTime(2023, 11, 23, 11),
       ),
@@ -1350,7 +1368,7 @@ class _CalenderItem extends StatelessWidget {
   final DateTime casheDate;
   final DateTime selectedDate;
   final List<Schedule>? scheduleList;
-  final List<Schedule>? holidayList;
+  final List<Holiday>? holidayList;
   final Function selectDate;
   final Function editSchedule;
   final Function addSchedule;
@@ -1430,7 +1448,7 @@ class _CalenderItem extends StatelessWidget {
                                               child: ListBody(
                                                 children: [
                                                   Text(
-                                                    'この日は『${e.title}』です。',
+                                                    e.explanation,
                                                   ),
                                                 ],
                                               ),
