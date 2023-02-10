@@ -76,7 +76,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 1, 9): [
       Holiday(
         title: '成人の日',
-        explanation: '',
+        explanation: '埼玉県蕨市によって始まった哀れな日。',
         startAt: DateTime(2023, 1, 9, 10),
         endAt: DateTime(2023, 1, 9, 11),
       ),
@@ -84,7 +84,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 2, 11): [
       Holiday(
         title: '建国記念日',
-        explanation: '',
+        explanation: '日本の建国を祝う日。',
         startAt: DateTime(2023, 2, 11, 10),
         endAt: DateTime(2023, 2, 11, 11),
       ),
@@ -92,7 +92,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 2, 23): [
       Holiday(
         title: '天皇誕生日',
-        explanation: '',
+        explanation: '天皇の誕生日を祝う日。',
         startAt: DateTime(2023, 2, 23, 10),
         endAt: DateTime(2023, 2, 23, 11),
       ),
@@ -100,7 +100,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 3, 21): [
       Holiday(
         title: '秋分の日',
-        explanation: '',
+        explanation: '昼と夜の長さがほぼ等しくなる日。',
         startAt: DateTime(2023, 3, 21, 10),
         endAt: DateTime(2023, 3, 21, 11),
       ),
@@ -108,7 +108,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 4, 29): [
       Holiday(
         title: '昭和の日',
-        explanation: '',
+        explanation: '激動の日々を経て、復興を遂げた昭和の時代を顧む日。',
         startAt: DateTime(2023, 4, 29, 10),
         endAt: DateTime(2023, 4, 29, 11),
       ),
@@ -116,7 +116,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 5, 3): [
       Holiday(
         title: '憲法記念日',
-        explanation: '',
+        explanation: '日本国憲法の施行を記念する日。',
         startAt: DateTime(2023, 5, 3, 10),
         endAt: DateTime(2023, 5, 3, 11),
       ),
@@ -124,7 +124,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 5, 4): [
       Holiday(
         title: 'みどりの日',
-        explanation: '',
+        explanation: '自然に親しむとともにその恩恵に感謝する日。',
         startAt: DateTime(2023, 5, 4, 10),
         endAt: DateTime(2023, 5, 4, 11),
       ),
@@ -132,7 +132,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 5, 5): [
       Holiday(
         title: 'こどもの日',
-        explanation: '',
+        explanation: 'こどもの人格を重んじる日。',
         startAt: DateTime(2023, 5, 5, 10),
         endAt: DateTime(2023, 5, 5, 11),
       ),
@@ -140,7 +140,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 7, 17): [
       Holiday(
         title: '海の日',
-        explanation: '',
+        explanation: '海の恩恵に感謝する日。',
         startAt: DateTime(2023, 7, 17, 10),
         endAt: DateTime(2023, 7, 17, 11),
       ),
@@ -148,7 +148,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 8, 11): [
       Holiday(
         title: '山の日',
-        explanation: '',
+        explanation: '山の恩恵に感謝する日。',
         startAt: DateTime(2023, 8, 11, 10),
         endAt: DateTime(2023, 8, 11, 11),
       ),
@@ -156,7 +156,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 9, 18): [
       Holiday(
         title: '敬老の日',
-        explanation: '',
+        explanation: '長寿を祝う日。',
         startAt: DateTime(2023, 9, 18, 10),
         endAt: DateTime(2023, 9, 18, 11),
       ),
@@ -164,7 +164,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 9, 23): [
       Holiday(
         title: '秋分の日',
-        explanation: '',
+        explanation: '昼と夜の長さが等しくなる日。',
         startAt: DateTime(2023, 9, 23, 10),
         endAt: DateTime(2023, 9, 23, 11),
       ),
@@ -172,7 +172,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 10, 9): [
       Holiday(
         title: 'スポーツの日',
-        explanation: '',
+        explanation: 'スポーツにしたしみ、健康な心身をつちかう日。',
         startAt: DateTime(2023, 10, 9, 10),
         endAt: DateTime(2023, 10, 9, 11),
       ),
@@ -180,7 +180,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 11, 3): [
       Holiday(
         title: '文化の日',
-        explanation: '',
+        explanation: '自由と平和を愛し、文化をすすめる日。',
         startAt: DateTime(2023, 11, 3, 10),
         endAt: DateTime(2023, 11, 3, 11),
       ),
@@ -188,7 +188,7 @@ class _CalenderViewState extends State<CalenderView> {
     DateTime(2023, 11, 23): [
       Holiday(
         title: '勤労感謝の日',
-        explanation: '',
+        explanation: '勤労をたっとび、生産を祝う日。',
         startAt: DateTime(2023, 11, 23, 10),
         endAt: DateTime(2023, 11, 23, 11),
       ),
@@ -429,7 +429,7 @@ class _CalenderViewState extends State<CalenderView> {
             Container(
               child: ListTile(
                 title: Text(
-                  'バージョン: 1.1.0',
+                  'バージョン: 1.2.0',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
