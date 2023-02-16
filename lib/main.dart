@@ -1,7 +1,12 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:calendar202211/pages/calender.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'amplifyconfiguration.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Amplify.configure(amplifyconfig);
   runApp(const MyApp());
 }
 
