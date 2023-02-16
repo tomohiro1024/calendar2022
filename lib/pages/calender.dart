@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../model/holiday.dart';
@@ -194,6 +195,19 @@ class _CalenderViewState extends State<CalenderView> {
       ),
     ],
   };
+
+  Future<bool> checkVersion() async {
+    String iosPkgName = 'com.tomohiro.calendar202211';
+    String storeVersion = '';
+    String PkgVersion = '';
+    PackageInfo _packageInfo =
+        PackageInfo(appName: '', packageName: '', version: '', buildNumber: '');
+    _packageInfo = await PackageInfo.fromPlatform();
+    PkgVersion = _packageInfo.version;
+    return true;
+  }
+
+  bool isCheckUpdate = true;
 
   void selectDate(DateTime casheDate) {
     selectedDate = casheDate;
@@ -426,18 +440,33 @@ class _CalenderViewState extends State<CalenderView> {
                 ),
               ),
             ),
-            Container(
-              child: ListTile(
-                title: Text(
-                  'バージョン: 1.2.0',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
+            isCheckUpdate == false
+                ? Container()
+                : Container(
+                    child: ListTile(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'バージョン: 1.2.0',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Text(
+                            '最新',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
