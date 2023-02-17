@@ -1,0 +1,5 @@
+{
+  "AppSyncApiName": "calendar202211",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false
+}
