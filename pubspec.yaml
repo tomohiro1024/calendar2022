@@ -37,6 +37,7 @@ dependencies:
   intl: any
   amplify_flutter: ^0.6.12
   package_info_plus: ^3.0.3
+  amplify_api: ^0.6.12
 
 dev_dependencies:
   flutter_test:
