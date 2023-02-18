@@ -1,1 +1,3 @@
-class ScheduleRepository {}
+class ScheduleRepository {
+  static Future<void> insertSchedule() async {}
+}
