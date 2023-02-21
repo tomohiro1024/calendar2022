@@ -1,4 +1,4 @@
-import 'package:amplify_api/model_mutations.dart';
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:calendar202211/models/Schedule.dart';
 
@@ -17,5 +17,22 @@ class ScheduleRepository {
     } on ApiException catch (e) {
       print('Mutation failed: $e');
     }
+  }
+
+  Future<List<Schedule?>> fetchScheduleList() async {
+    try {
+      final request = ModelQueries.list(Schedule.classType);
+      final response = await Amplify.API.query(request: request).response;
+
+      final schedules = response.data?.items;
+      if (schedules == null) {
+        print('errors: ${response.errors}');
+        return <Schedule?>[];
+      }
+      return schedules;
+    } on ApiException catch (e) {
+      print('Query failed: $e');
+    }
+    return <Schedule?>[];
   }
 }
