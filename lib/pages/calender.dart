@@ -193,9 +193,16 @@ class _CalenderViewState extends State<CalenderView> {
     setState(() {});
   }
 
+  Future<void> fetchScheduleList() async {
+    List<Schedule?> scheduleList = await ScheduleRepository.fetchScheduleList();
+    print(scheduleList);
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchScheduleList();
     yearOption = [for (int i = 0; i < 10; i++) now.year + i];
     selectedDate = now;
     initialIndex =

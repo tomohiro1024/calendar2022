@@ -19,7 +19,7 @@ class ScheduleRepository {
     }
   }
 
-  Future<List<Schedule?>> fetchScheduleList() async {
+  static Future<List<Schedule?>> fetchScheduleList() async {
     try {
       final request = ModelQueries.list(Schedule.classType);
       final response = await Amplify.API.query(request: request).response;
