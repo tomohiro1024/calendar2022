@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:calendar202211/model/schedule.dart';
+import 'package:calendar202211/models/Schedule.dart';
+import 'package:calendar202211/repository/schedule_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -54,15 +55,7 @@ class _CalenderViewState extends State<CalenderView> {
   // ピッカーの開始か終了かの判断
   bool isSettingStartTime = true;
 
-  Map<DateTime, List<Schedule>> scheduleMap = {
-    DateTime(2023, 2, 1): [
-      Schedule(
-        title: 'リリース',
-        startAt: DateTime(2023, 2, 1, 1),
-        endAt: DateTime(2023, 2, 1, 2),
-      ),
-    ],
-  };
+  Map<DateTime, List<Schedule>> scheduleMap = {};
 
   Map<DateTime, List<Holiday>> holidayMap = {
     DateTime(2023, 1, 1): [
@@ -601,7 +594,7 @@ class _CalenderViewState extends State<CalenderView> {
                   ),
                   // 追加ボタン
                   IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       final isFormValidate = !_formKey.currentState!.validate();
                       if (isFormValidate) {
                         return;
@@ -618,17 +611,22 @@ class _CalenderViewState extends State<CalenderView> {
                           selectedStartTime!.day);
 
                       Schedule newSchedule = Schedule(
-                          title: titleController.text,
-                          startAt: selectedStartTime!,
-                          endAt: selectedEndTime!);
+                        title: titleController.text,
+                        startAt: DateFormat('yyyy-MM-dd HH:mm')
+                            .format(selectedStartTime!),
+                        endAt: DateFormat('yyyy-MM-dd HH:mm')
+                            .format(selectedEndTime!),
+                      );
+
+                      await ScheduleRepository.insertSchedule(newSchedule);
 
                       // scheduleMapに選択している日付のキーが含まれている場合
-                      if (scheduleMap.containsKey(checkScheduleTime)) {
-                        scheduleMap[checkScheduleTime]!.add(newSchedule);
-                      } else {
-                        // キーが存在していない場合、キーに新しいスケジュールの情報を入れる
-                        scheduleMap[checkScheduleTime] = [newSchedule];
-                      }
+                      // if (scheduleMap.containsKey(checkScheduleTime)) {
+                      //   scheduleMap[checkScheduleTime]!.add(newSchedule);
+                      // } else {
+                      //   // キーが存在していない場合、キーに新しいスケジュールの情報を入れる
+                      //   scheduleMap[checkScheduleTime] = [newSchedule];
+                      // }
 
                       selectedEndTime = null;
 
@@ -832,9 +830,12 @@ class _CalenderViewState extends State<CalenderView> {
                           selectedStartTime!.day);
 
                       Schedule newSchedule = Schedule(
-                          title: titleController.text,
-                          startAt: selectedStartTime!,
-                          endAt: selectedEndTime!);
+                        title: titleController.text,
+                        startAt: DateFormat('yyyy-MM-dd HH:mm')
+                            .format(selectedStartTime!),
+                        endAt: DateFormat('yyyy-MM-dd HH:mm')
+                            .format(selectedEndTime!),
+                      );
 
                       // scheduleMapに選択している日付のキーが含まれている場合
                       if (scheduleMap.containsKey(checkScheduleTime)) {
@@ -1267,30 +1268,30 @@ class _CalenderViewState extends State<CalenderView> {
 
   Future<void> editSchedule(
       {required int index, required Schedule selectedSchedule}) async {
-    selectedStartTime = selectedSchedule.startAt;
-    selectedEndTime = selectedSchedule.endAt;
-    titleController.text = selectedSchedule.title;
-    final result = await showDialog(
-        context: context,
-        builder: (context) {
-          return buildEditAppScheduleDialog();
-        });
-    // 元々登録されているデータを削除
-    if (result == true) {
-      scheduleMap[DateTime(selectedSchedule.startAt.year,
-              selectedSchedule.startAt.month, selectedSchedule.startAt.day)]!
-          .removeAt(index);
-    }
-    titleController.clear();
+    // selectedStartTime = selectedSchedule.startAt;
+    // selectedEndTime = selectedSchedule.endAt;
+    // titleController.text = selectedSchedule.title;
+    // final result = await showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return buildEditAppScheduleDialog();
+    //     });
+    // // 元々登録されているデータを削除
+    // if (result == true) {
+    //   scheduleMap[DateTime(selectedSchedule.startAt.year,
+    //           selectedSchedule.startAt.month, selectedSchedule.startAt.day)]!
+    //       .removeAt(index);
+    // }
+    // titleController.clear();
 
     setState(() {});
   }
 
   Future<void> deleteSchedule(
       {required int index, required Schedule selectedSchedule}) async {
-    scheduleMap[DateTime(selectedSchedule.startAt.year,
-            selectedSchedule.startAt.month, selectedSchedule.startAt.day)]!
-        .removeAt(index);
+    // scheduleMap[DateTime(selectedSchedule.startAt.year,
+    //         selectedSchedule.startAt.month, selectedSchedule.startAt.day)]!
+    //     .removeAt(index);
     setState(() {});
   }
 
