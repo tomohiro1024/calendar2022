@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:calendar202211/model/schedule.dart';
-import 'package:calendar202211/repository/schedule_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -607,7 +606,7 @@ class _CalenderViewState extends State<CalenderView> {
                       if (isFormValidate) {
                         return;
                       }
-                      ScheduleRepository.insertSchedule();
+
                       if (!validationIsOk()) {
                         errorDialog();
                         return;
