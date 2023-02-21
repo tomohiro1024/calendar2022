@@ -195,7 +195,19 @@ class _CalenderViewState extends State<CalenderView> {
 
   Future<void> fetchScheduleList() async {
     List<Schedule?> scheduleList = await ScheduleRepository.fetchScheduleList();
-    print(scheduleList);
+    // fetchScheduleList()が取得される場合は、初期化する。初期化しないと重複されてしまう。
+    scheduleMap = {};
+    for (var schedule in scheduleList) {
+      // string → DateTime
+      DateTime startAt = DateTime.parse(schedule!.startAt);
+      DateTime checkStartTime =
+          DateTime(startAt.year, startAt.month, startAt.day);
+      if (scheduleMap.containsKey(checkStartTime)) {
+        scheduleMap[checkStartTime]!.add(schedule);
+      } else {
+        scheduleMap[checkStartTime] = [schedule];
+      }
+    }
     setState(() {});
   }
 
@@ -612,11 +624,6 @@ class _CalenderViewState extends State<CalenderView> {
                         return;
                       }
 
-                      DateTime checkScheduleTime = DateTime(
-                          selectedStartTime!.year,
-                          selectedStartTime!.month,
-                          selectedStartTime!.day);
-
                       Schedule newSchedule = Schedule(
                         title: titleController.text,
                         startAt: DateFormat('yyyy-MM-dd HH:mm')
@@ -626,6 +633,7 @@ class _CalenderViewState extends State<CalenderView> {
                       );
 
                       await ScheduleRepository.insertSchedule(newSchedule);
+                      fetchScheduleList();
 
                       // scheduleMapに選択している日付のキーが含まれている場合
                       // if (scheduleMap.containsKey(checkScheduleTime)) {
