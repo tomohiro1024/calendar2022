@@ -1283,21 +1283,21 @@ class _CalenderViewState extends State<CalenderView> {
 
   Future<void> editSchedule(
       {required int index, required Schedule selectedSchedule}) async {
-    // selectedStartTime = selectedSchedule.startAt;
-    // selectedEndTime = selectedSchedule.endAt;
-    // titleController.text = selectedSchedule.title;
-    // final result = await showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       return buildEditAppScheduleDialog();
-    //     });
-    // // 元々登録されているデータを削除
+    selectedStartTime = DateTime.parse(selectedSchedule.startAt);
+    selectedEndTime = DateTime.parse(selectedSchedule.endAt);
+    titleController.text = selectedSchedule.title;
+    final result = await showDialog(
+        context: context,
+        builder: (context) {
+          return buildEditAppScheduleDialog();
+        });
+    // 元々登録されているデータを削除
     // if (result == true) {
     //   scheduleMap[DateTime(selectedSchedule.startAt.year,
     //           selectedSchedule.startAt.month, selectedSchedule.startAt.day)]!
     //       .removeAt(index);
     // }
-    // titleController.clear();
+    titleController.clear();
 
     setState(() {});
   }

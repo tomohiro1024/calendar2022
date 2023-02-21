@@ -36,7 +36,7 @@ class ScheduleRepository {
     return <Schedule?>[];
   }
 
-  Future<void> updateSchedule(Schedule updatedSchedule) async {
+  static Future<void> updateSchedule(Schedule updatedSchedule) async {
     final request = ModelMutations.update(updatedSchedule);
     final response = await Amplify.API.mutate(request: request).response;
     print('Response: $response');
